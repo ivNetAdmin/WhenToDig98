@@ -235,6 +235,10 @@ namespace WhenToDig98.Pages
 
         private void AddVarietyOnButtonClicked(object sender, EventArgs e)
         {
+            MessagingCenter.Subscribe<AddVariety, Variety>(this, "new variety", (page, variety) => {
+            
+                var cakes = variety;
+            });
             Navigation.PushAsync(new AddVariety(_database));
         }
 
