@@ -49,12 +49,35 @@ namespace WhenToDig98.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Save" }, 0, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveVarietyOnButtonClicked;
 
             grid.Children.Add(new Button { Text = "Cancel" }, 4, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveVarietyOnButtonClicked;
             return grid;
+        }
+        
+        private void SaveVarietyOnButtonClicked(object sender, EventArgs e)
+        {
+            switch (((Button)sender).Text)
+            {
+                case "Save":
+                    //var layout = (StackLayout)this.Content;
+                    //var grid = (Grid)layout.Children[0];
+
+                    //var name = ((Editor)grid.Children[1]).Text;
+                    //var plantType = ((Editor)grid.Children[3]).Text;
+                    //var plantTime = ((Editor)grid.Children[5]).Text;
+                    //var harvestTime = ((Editor)grid.Children[7]).Text;                        
+
+                    //_database.AddPlant(_plant.ID, name, plantType, plantTime, harvestTime);
+
+                    Navigation.PopToRootAsync();
+                    break;
+                case "Cancel":
+                    Navigation.PopToRootAsync();
+                    break;
+            }
         }
     }
 }
