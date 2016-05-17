@@ -74,6 +74,7 @@ namespace WhenToDig98.Data
         #endregion
 
         #region plants
+        
         public string[] GetPlants()
         {
             return new[] { "Carrot", "Broad Bean [Autumn]", "Potato" };
