@@ -119,10 +119,10 @@ namespace WhenToDig98.Pages
 
                     //_database.AddPlant(_plant.ID, name, plantType, plantTime, harvestTime);
 
-                    Navigation.PopToRootAsync();
+                    Navigation.PopAsync();
                     break;
                 case "Cancel":
-                    Navigation.PopToRootAsync();
+                    Navigation.PopAsync();
                     break;
             }
         }
