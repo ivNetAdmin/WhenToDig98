@@ -61,7 +61,7 @@ namespace WhenToDig98.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Label
             {
-                Text = "Variety",
+                Text = "Type",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
@@ -76,7 +76,7 @@ namespace WhenToDig98.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Label
             {
-                Text = "Type",
+                Text = "P-Time",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
@@ -86,11 +86,25 @@ namespace WhenToDig98.Pages
             {
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 2);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+            
+             grid.Children.Add(new Label
+            {
+                Text = "H-Time",
+                TextColor = Color.Silver,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center
+            }, 3, 2);
 
+            grid.Children.Add(new Editor
+            {
+                //Text = _task == null ? string.Empty : _task.Description
+            }, 4, 2);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+            
             grid.Children.Add(new Label
             {
-                Text = "Plant",
+                Text = "P-Note",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
@@ -101,22 +115,22 @@ namespace WhenToDig98.Pages
                // Text = _task == null ? string.Empty : _task.Notes
             }, 1, 3);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
+            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 2);
 
             grid.Children.Add(new Label
             {
-                Text = "Harvest",
+                Text = "H-Note",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
-            }, 0, 6);
+            }, 0, 5);
 
             grid.Children.Add(new Editor
             {
                 // Text = _task == null ? string.Empty : _task.Notes
-            }, 1, 6);
+            }, 1, 5);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
+            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 2);
             return grid;
 
         }
