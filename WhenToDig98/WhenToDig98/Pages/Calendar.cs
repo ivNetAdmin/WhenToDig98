@@ -266,8 +266,12 @@ namespace WhenToDig98.Pages
                     grid.Children.Add(date, 0, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
                     grid.Children.Add(description, 1, 0);
-                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 4);
-                    grid.Children.Add(typeImage, 5, 0);
+                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                    grid.Children.Add(typeImage, 4, 0);
+                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+                    grid.Children.Add(new Button{
+                        Text = "D"
+                    }, 5, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
 
                     var viewCell = new ViewCell
