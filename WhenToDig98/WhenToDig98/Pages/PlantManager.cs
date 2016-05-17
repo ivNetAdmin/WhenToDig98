@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using WhenToDig98.Data;
 using WhenToDig98.Helpers;
@@ -62,10 +63,11 @@ namespace WhenToDig98.Pages
 
             return grid;
          }
-         
-         private void NewPlantOnButtonClicked(object sender, EventArgs e)
-         {
-            Navigation.PushAsync(new AddPlant(_database));    
-         }
+
+        private void NewPlantOnButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AddPlant(_database));
+        }
+
     }
 }

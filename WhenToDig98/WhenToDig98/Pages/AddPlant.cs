@@ -1,7 +1,5 @@
 
-﻿
 using System;
-using System.Collections.Generic;
 using WhenToDig98.Data;
 using WhenToDig98.Models;
 using Xamarin.Forms;
@@ -13,7 +11,7 @@ namespace WhenToDig98.Pages
         private WTDDatabase _database;
         private Plant _plant;
 
-        public AddTask(WTDDatabase database, int plantId = 0)
+        public AddPlant(WTDDatabase database, int plantId = 0)
         {
             _database = database;
 
@@ -89,9 +87,9 @@ namespace WhenToDig98.Pages
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 2);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-            
+
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-             grid.Children.Add(new Label
+            grid.Children.Add(new Label
             {
                 Text = "H-Time",
                 TextColor = Color.Silver,
@@ -104,7 +102,7 @@ namespace WhenToDig98.Pages
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 3);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-            
+
             grid.Children.Add(new Label
             {
                 Text = "P-Note",
@@ -115,10 +113,10 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-               // Text = _task == null ? string.Empty : _task.Notes
+                // Text = _task == null ? string.Empty : _task.Notes
             }, 1, 4);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 2);
+            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
 
             grid.Children.Add(new Label
             {
@@ -126,14 +124,16 @@ namespace WhenToDig98.Pages
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
-            }, 0, 6);
+            }, 0, 7);
 
             grid.Children.Add(new Editor
             {
                 // Text = _task == null ? string.Empty : _task.Notes
-            }, 1, 6);
+            }, 1, 7);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 2);
+            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
+
             return grid;
         }
+    }
 }

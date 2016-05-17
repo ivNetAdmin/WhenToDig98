@@ -38,6 +38,7 @@
     <Compile Include="Helpers\Enums\PageNav.cs" />
     <Compile Include="Helpers\PageToolBarItems.cs" />
     <Compile Include="Models\Plant.cs" />
+    <Compile Include="Pages\AddPlant.cs" />
     <Compile Include="Pages\AddTask.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Pages\Calendar.cs" />
