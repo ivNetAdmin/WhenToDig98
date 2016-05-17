@@ -116,14 +116,14 @@ namespace WhenToDig98.Pages
                     var name = ((Editor)grid.Children[1]).Text;
                     var plantNotes = ((Editor)grid.Children[3]).Text;
                     var harvestNotes = ((Editor)grid.Children[5]).Text;
-                
-                    var variety = new Variety{
+
+                    var variety = new Variety {
                         Name = name,
                         PlantingNotes = plantNotes,
                         HarvestingNotes = harvestNotes
-                    }
-                
-                    MessagingCenter.Send<AddVariety, Variety>(this, "new variety", variety)
+                    };
+
+                    MessagingCenter.Send<AddVariety, Variety>(this, "new variety", variety);
 
                     Navigation.PopAsync();
                     break;

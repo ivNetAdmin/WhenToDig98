@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using WhenToDig98.Models;
 
@@ -27,7 +28,7 @@ namespace WhenToDig98.Data
         public Task GetTask(int id) {
             return _connection.Table<Task>().FirstOrDefault(t => t.ID == id);
         }
-
+      
         public void DeleteTask(int id) {
             _connection.Delete<Task>(id);
         }
@@ -110,6 +111,13 @@ namespace WhenToDig98.Data
         {
             return _connection.Table<Variety>().FirstOrDefault(t => t.ID == id);
         }
+
+        internal ObservableCollection<Variety> GetPlantVarieties(int plantId)
+        {
+            return new ObservableCollection<Variety>();
+        }
+
+
         #endregion
 
     }

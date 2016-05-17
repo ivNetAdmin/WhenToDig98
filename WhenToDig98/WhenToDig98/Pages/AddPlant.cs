@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using WhenToDig98.Data;
 using WhenToDig98.Models;
 using Xamarin.Forms;
@@ -11,6 +12,7 @@ namespace WhenToDig98.Pages
     {
         private WTDDatabase _database;
         private Plant _currentPlant;
+        private ObservableCollection<Variety> _varietyList;
 
         public AddPlant(WTDDatabase database, int plantId = 0)
         {
@@ -19,10 +21,12 @@ namespace WhenToDig98.Pages
             if (plantId == 0)
             {
                 _currentPlant = null;
+                _varietyList = new ObservableCollection<Variety>();
             }
             else
             {
                 _currentPlant = _database.GetPlant(plantId);
+                _varietyList = _database.GetPlantVarieties(plantId);
             }
 
             var grid = BuildForm();
@@ -161,7 +165,7 @@ namespace WhenToDig98.Pages
             var listView = new ListView
             {
                 RowHeight = 40,
-                ItemsSource = new List<Variety>(),
+                ItemsSource = _varietyList,
                 ItemTemplate = new DataTemplate(() =>
                 {
                     // var menuItem = new MenuItem
@@ -173,12 +177,12 @@ namespace WhenToDig98.Pages
                     };
                     name.SetBinding(Label.TextProperty, "Name");
 
-                    var description = new Label
-                    {
-                        HorizontalTextAlignment = TextAlignment.Start,
-                        VerticalTextAlignment = TextAlignment.Center,
-                        //BackgroundColor = Color.Red
-                    };
+                    //var description = new Label
+                    //{
+                    //    HorizontalTextAlignment = TextAlignment.Start,
+                    //    VerticalTextAlignment = TextAlignment.Center,
+                    //    //BackgroundColor = Color.Red
+                    //};
                     //description.SetBinding(Label.TextProperty, "Description");
 
                     //var typeImage = new Image
@@ -235,9 +239,11 @@ namespace WhenToDig98.Pages
 
         private void AddVarietyOnButtonClicked(object sender, EventArgs e)
         {
+            //var addVariety = new AddVariety(_database);
             MessagingCenter.Subscribe<AddVariety, Variety>(this, "new variety", (page, variety) => {
-            
-                var cakes = variety;
+
+                _varietyList.Add(variety);
+                BuildForm();
             });
             Navigation.PushAsync(new AddVariety(_database));
         }
