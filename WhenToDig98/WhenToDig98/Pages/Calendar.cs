@@ -270,9 +270,10 @@ namespace WhenToDig98.Pages
                     grid.Children.Add(typeImage, 4, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
                     grid.Children.Add(new Button{
-                        Text = "D"
+                        Text = "X"
                     }, 5, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+                    ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
 
                     var viewCell = new ViewCell
                     {
@@ -427,6 +428,12 @@ namespace WhenToDig98.Pages
 
         }
 
+        private void DeleteTaskButtonClicked(object sender, EventArgs e)
+        {
+            var cakes = "Zozos sister";
+             //Convert.ToInt32(((ViewCell)sender).ClassId)
+        }
+         
         private void CalendarNavOnButtonClicked(object sender, EventArgs e)
         {
             switch (((Button)sender).Text)
