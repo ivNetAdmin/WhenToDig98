@@ -45,6 +45,8 @@ namespace WhenToDig98.Pages
             };
             
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            
+            return grid;
         }
     }
 }
