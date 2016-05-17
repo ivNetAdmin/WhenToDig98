@@ -1,6 +1,8 @@
 ﻿
+using System.Collections.Generic;
 using WhenToDig98.Data;
 using WhenToDig98.Helpers;
+using WhenToDig98.Models;
 using Xamarin.Forms;
 
 namespace WhenToDig98.Pages
@@ -45,10 +47,12 @@ namespace WhenToDig98.Pages
          
          private Grid BuildPlantTaskBar()
          {
-             var grid = new Grid
-             {
-                 VerticalOptions = LayoutOptions.Fill
-             }
+            var grid = new Grid
+            {
+                VerticalOptions = LayoutOptions.Fill
+            };
+
+            return grid;
          }
     }
 }

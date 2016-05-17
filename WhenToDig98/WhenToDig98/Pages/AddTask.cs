@@ -12,7 +12,7 @@ namespace WhenToDig98.Pages
         private WTDDatabase _database;
         private Task _task;
         private string[] _taskTypes;
-        private string[] _plants;
+        private IEnumerable<Plant> _plants;
 
         public AddTask(WTDDatabase database, int taskId = 0)
         {
@@ -103,9 +103,9 @@ namespace WhenToDig98.Pages
             {
                 if (_task != null)
                 {
-                    if (plant == _task.Plant) selectedPlantIndex = Array.FindIndex(_plants, index => index.Contains(plant));
+                   // if (plant == _task.Plant) selectedPlantIndex = Array.FindIndex(_plants, index => index.Contains(plant));
                 }
-                plantPicker.Items.Add(plant);
+              //  plantPicker.Items.Add(plant);
             }
             if(selectedPlantIndex>-1)
             plantPicker.SelectedIndex = selectedPlantIndex;
@@ -177,7 +177,7 @@ namespace WhenToDig98.Pages
 
                     var date = ((DatePicker)grid.Children[1]).Date;
                     var taskType = ((Picker)grid.Children[3]).SelectedIndex + 1; // to make the background images work 
-                    var plant = _plants[((Picker)grid.Children[5]).SelectedIndex];
+                  //  var plant = _plants[((Picker)grid.Children[5]).SelectedIndex];
                     var description = ((Editor)grid.Children[7]).Text;
                     var notes = ((Editor)grid.Children[9]).Text;
 
@@ -186,7 +186,7 @@ namespace WhenToDig98.Pages
 
                     var taskId = _task == null ? 0 : _task.ID;
 
-                    _database.AddTask(taskId, description, notes, taskType, date, plant);
+                    _database.AddTask(taskId, description, notes, taskType, date, null /*plant*/);
 
                     Navigation.PopToRootAsync();
                     break;
