@@ -8,6 +8,7 @@ namespace WhenToDig98.Pages
     public class PlantManager : ContentPage
     {
         private WTDDatabase _database;
+        private IEnumerable<Plant> _plants;
 
         public PlantManager(WTDDatabase database)
         {
@@ -21,18 +22,33 @@ namespace WhenToDig98.Pages
 
             this.Content = new StackLayout
             {
-                Padding = new Thickness(5, 10),
-                VerticalOptions = LayoutOptions.StartAndExpand,
-                Children = {
-                   // grid
-                }
+                Spacing = 5,
+                Padding = new Thickness(5, 10)
             };
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            PageToolBarItems.Build(_database, this);           
+            PageToolBarItems.Build(_database, this);  
+            UpdatePlants();
         }
+        
+         private void UpdatePlants()
+         {
+             // get plants
+            _plants = _database.GetPlants();
+            
+            ((StackLayout)this.Content).Children.Clear();
+            ((StackLayout)this.Content).Children.Add(BuildPlantTaskBar());
+         }
+         
+         private Grid BuildPlantTaskBar()
+         {
+             var grid = new Grid
+             {
+                 VerticalOptions = LayoutOptions.Fill
+             }
+         }
     }
 }
