@@ -221,10 +221,8 @@ namespace WhenToDig98.Pages
 
         private ListView BuildTaskList()
         {           
-
             var listView =  new ListView
             {
-           
                 RowHeight=40,
                 ItemsSource = _tasks,
                 ItemTemplate = new DataTemplate(() =>
@@ -273,6 +271,7 @@ namespace WhenToDig98.Pages
                         Text = "X"
                     }, 5, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+                    ((Button)grid.Children[grid.Children.Count - 1]).SetBinding(((Button)grid.Children[grid.Children.Count - 1]).ClassIdProperty, "ID");
                     ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
 
                     var viewCell = new ViewCell
@@ -430,8 +429,12 @@ namespace WhenToDig98.Pages
 
         private void DeleteTaskButtonClicked(object sender, EventArgs e)
         {
-            var cakes = "Zozos sister";
-             //Convert.ToInt32(((ViewCell)sender).ClassId)
+            if (await DisplayAlert("Delete Task", "Are you sure you want to delete this task?", "Yes", "No"))
+                {
+                    var id = Convert.ToInt32(((Button)sender).ClassId)
+                    _database.DeleteTask(id);
+                    UpdateCalendar();
+                }
         }
          
         private void CalendarNavOnButtonClicked(object sender, EventArgs e)
@@ -462,15 +465,16 @@ namespace WhenToDig98.Pages
             Navigation.PushAsync(new AddTask(_database));
         }
 
+        private void TaskRowTapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AddTask(_database, Convert.ToInt32(((ViewCell)sender).ClassId)));
+        }
+        
         private void OnLabelClicked(DateTime date)
         {
             var dateStr = date.ToString("dd-MMM-yyyy");
             var cakes = dateStr;
         }
 
-        private void TaskRowTapped(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new AddTask(_database, Convert.ToInt32(((ViewCell)sender).ClassId)));
-        }
     }
 }
