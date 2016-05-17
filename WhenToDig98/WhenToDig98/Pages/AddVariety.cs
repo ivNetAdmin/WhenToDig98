@@ -45,13 +45,60 @@ namespace WhenToDig98.Pages
             };
             
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+             grid.Children.Add(new Label
+            {
+                Text = "Name",
+                TextColor = Color.Silver,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center
+            }, 0, 0);
+
+            grid.Children.Add(new Editor
+            {
+                //Text = _task == null ? string.Empty : _task.Notes
+            }, 1, 0);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
             
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid.Children.Add(new Button { Text = "Save" }, 0, 0);
+            grid.Children.Add(new Label
+            {
+                Text = "Planting Notes",
+                TextColor = Color.Silver,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center
+            }, 0, 1);
+             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+
+            grid.Children.Add(new Editor
+            {
+                //Text = _task == null ? string.Empty : _task.Notes
+            }, 1, 1);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
+            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
+            
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.Children.Add(new Label
+            {
+                Text = "Harvesting Notes",
+                TextColor = Color.Silver,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center
+            }, 0, 4);
+             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+
+            grid.Children.Add(new Editor
+            {
+                //Text = _task == null ? string.Empty : _task.Notes
+            }, 1, 4);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
+            Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
+            
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.Children.Add(new Button { Text = "Save" }, 0, 7);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveVarietyOnButtonClicked;
 
-            grid.Children.Add(new Button { Text = "Cancel" }, 4, 0);
+            grid.Children.Add(new Button { Text = "Cancel" }, 4, 7);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveVarietyOnButtonClicked;
             return grid;
