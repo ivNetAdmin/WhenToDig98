@@ -164,17 +164,9 @@ namespace WhenToDig98.Pages
 
             for (var r = 0; r < rowCount; r++)
             {
-                //grid.RowDefinitions.Add(new RowDefinition
-                //{
-                //    Height = new GridLength(1, GridUnitType.Star)
-                //});
-
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
                 BuildCalendarCells(grid, _weekDays, dates, r);
-
             }
-            //BuildCalendarTaskBar(grid, rowCount);
 
             return grid;
         }
@@ -262,7 +254,8 @@ namespace WhenToDig98.Pages
 
                     var deleteButton = new Button
                     {
-                        Text = "X"
+                        Text = "X",
+                        TextColor = Color.Red
                     };
                     deleteButton.SetBinding(Button.ClassIdProperty, "ID");
 
