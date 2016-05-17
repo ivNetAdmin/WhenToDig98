@@ -85,7 +85,7 @@ namespace WhenToDig98.Data
         //    return (from t in _connection.Table<Task>() select t).ToList();
         //}       
 
-        public Task GetPlant(int id) {
+        public Plant GetPlant(int id) {
             return _connection.Table<Plant>().FirstOrDefault(t => t.ID == id);
         }
         
