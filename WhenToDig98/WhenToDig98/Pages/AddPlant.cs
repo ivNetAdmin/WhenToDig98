@@ -10,7 +10,7 @@ namespace WhenToDig98.Pages
     public class AddPlant : ContentPage
     {
         private WTDDatabase _database;
-        private Plant _plant;
+        private Plant _currentPlant;
 
         public AddPlant(WTDDatabase database, int plantId = 0)
         {
@@ -18,11 +18,11 @@ namespace WhenToDig98.Pages
 
             if (plantId == 0)
             {
-                _plant = null;
+                _currentPlant = null;
             }
             else
             {
-                _plant = _database.GetPlant(plantId);
+                _currentPlant = _database.GetPlant(plantId);
             }
 
             var grid = BuildForm();
@@ -137,7 +137,7 @@ namespace WhenToDig98.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Add Variety" }, 0, 4);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveVarietyOnButtonClicked;
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += AddVarietyOnButtonClicked;
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(GetVarietyList(), 0, 5);
@@ -233,9 +233,9 @@ namespace WhenToDig98.Pages
 
         }
 
-        private void SaveVarietyOnButtonClicked(object sender, EventArgs e)
+        private void AddVarietyOnButtonClicked(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            Navigation.PushAsync(new AddVariety(_database));
         }
 
         private void SavePlantOnButtonClicked(object sender, EventArgs e)
@@ -251,7 +251,7 @@ namespace WhenToDig98.Pages
                     var plantTime = ((Editor)grid.Children[5]).Text;
                     var harvestTime = ((Editor)grid.Children[7]).Text;                        
 
-                    _database.AddPlant(_plant.ID, name, plantType, plantTime, harvestTime);
+                    _database.AddPlant(_currentPlant.ID, name, plantType, plantTime, harvestTime);
 
                     Navigation.PopToRootAsync();
                     break;

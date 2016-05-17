@@ -22,8 +22,8 @@ namespace WhenToDig98.Data
         public IEnumerable<Task> GetTasks()
         {
             return (from t in _connection.Table<Task>() select t).ToList();
-        }       
-
+        }
+       
         public Task GetTask(int id) {
             return _connection.Table<Task>().FirstOrDefault(t => t.ID == id);
         }
@@ -102,6 +102,13 @@ namespace WhenToDig98.Data
                 newPlant.ID = id;
                 _connection.Update(newPlant);
             }
+        }
+        #endregion
+
+        #region variety
+        public Variety GetVariety(int id)
+        {
+            return _connection.Table<Variety>().FirstOrDefault(t => t.ID == id);
         }
         #endregion
 
