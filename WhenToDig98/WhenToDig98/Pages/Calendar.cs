@@ -260,18 +260,22 @@ namespace WhenToDig98.Pages
                         Height = GridLength.Auto
                     });
 
-                   // grid.Children.Add(id,-1,0);
+                    var deleteButton = new Button
+                    {
+                        Text = "X"
+                    };
+                    deleteButton.SetBinding(Button.ClassIdProperty, "ID");
+
+                    // grid.Children.Add(id,-1,0);
                     grid.Children.Add(date, 0, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
                      grid.Children.Add(typeImage, 1, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
                     grid.Children.Add(description, 2, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-                    grid.Children.Add(new Button{
-                        Text = "X"
-                    }, 5, 0);
+                    grid.Children.Add(deleteButton, 5, 0);
                     Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-                    ((Button)grid.Children[grid.Children.Count - 1]).SetBinding(((Button)grid.Children[grid.Children.Count - 1]).ClassIdProperty, "ID");
+                    
                     ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
 
                     var viewCell = new ViewCell
@@ -427,11 +431,11 @@ namespace WhenToDig98.Pages
 
         }
 
-        private void DeleteTaskButtonClicked(object sender, EventArgs e)
+        async void DeleteTaskButtonClicked(object sender, EventArgs e)
         {
             if (await DisplayAlert("Delete Task", "Are you sure you want to delete this task?", "Yes", "No"))
                 {
-                    var id = Convert.ToInt32(((Button)sender).ClassId)
+                var id = Convert.ToInt32(((Button)sender).ClassId);
                     _database.DeleteTask(id);
                     UpdateCalendar();
                 }
