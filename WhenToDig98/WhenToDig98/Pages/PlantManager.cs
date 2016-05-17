@@ -51,8 +51,21 @@ namespace WhenToDig98.Pages
             {
                 VerticalOptions = LayoutOptions.Fill
             };
+            
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.Children.Add(new Button
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "New Plant",
+            }, 0, 0);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += NewPlantOnButtonClicked;
 
             return grid;
+         }
+         
+         private void NewPlantOnButtonClicked(object sender, EventArgs e)
+         {
+            Navigation.PushAsync(new AddPlant(_database));    
          }
     }
 }
