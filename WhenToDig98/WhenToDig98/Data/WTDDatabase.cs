@@ -79,6 +79,16 @@ namespace WhenToDig98.Data
         {
             return new[] { "Carrot", "Broad Bean [Autumn]", "Potato" };
         }
+        
+        //public IEnumerable<Task> GetTasks()
+        //{
+        //    return (from t in _connection.Table<Task>() select t).ToList();
+        //}       
+
+        public Task GetPlant(int id) {
+            return _connection.Table<Plant>().FirstOrDefault(t => t.ID == id);
+        }
+        
         #endregion
 
     }
