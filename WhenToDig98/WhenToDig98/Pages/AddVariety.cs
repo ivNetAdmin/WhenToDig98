@@ -46,6 +46,14 @@ namespace WhenToDig98.Pages
             
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.Children.Add(new Button { Text = "Save" }, 0, 0);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
+
+            grid.Children.Add(new Button { Text = "Cancel" }, 4, 0);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
             return grid;
         }
     }
