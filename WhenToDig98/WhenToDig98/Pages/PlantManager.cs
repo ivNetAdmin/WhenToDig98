@@ -12,6 +12,7 @@ namespace WhenToDig98.Pages
     {
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
+        private int _currentPlant;
 
         public PlantManager(WTDDatabase database)
         {
@@ -57,12 +58,24 @@ namespace WhenToDig98.Pages
             grid.Children.Add(new Button
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = "New Plant",
+                Text = "Edit Plant",
             }, 0, 0);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += EditPlantOnButtonClicked;
+
+            grid.Children.Add(new Button
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "New Plant",
+            }, 1, 0);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += NewPlantOnButtonClicked;
 
             return grid;
          }
+
+        private void EditPlantOnButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AddPlant(_database, _currentPlant));
+        }
 
         private void NewPlantOnButtonClicked(object sender, EventArgs e)
         {

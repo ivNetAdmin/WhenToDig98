@@ -82,6 +82,27 @@ namespace WhenToDig98.Data
         public Plant GetPlant(int id) {
             return _connection.Table<Plant>().FirstOrDefault(t => t.ID == id);
         }
+
+        internal void AddPlant(int id, string name, string plantType, string plantTime, string harvestTime)
+        {
+            var newPlant = new Plant
+            {
+                Name = name,
+                Type = plantType,
+                PlantingTime = plantTime,
+                HarvestingTime = harvestTime
+            };
+
+            if (id == 0)
+            {
+                _connection.Insert(newPlant);
+            }
+            else
+            {
+                newPlant.ID = id;
+                _connection.Update(newPlant);
+            }
+        }
         #endregion
 
     }
