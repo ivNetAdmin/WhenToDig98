@@ -65,14 +65,16 @@ namespace WhenToDig98.Pages
                 Text = "Planting Notes",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
-                VerticalTextAlignment = TextAlignment.Center
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Color.Yellow
             }, 0, 1);
              Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
 
             grid.Children.Add(new Editor
             {
+                BackgroundColor = Color.Blue
                 //Text = _task == null ? string.Empty : _task.Notes
-            }, 1, 1);
+            }, 2, 1);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
             
@@ -82,14 +84,16 @@ namespace WhenToDig98.Pages
                 Text = "Harvesting Notes",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
-                VerticalTextAlignment = TextAlignment.Center
+                VerticalTextAlignment = TextAlignment.Center,
+                BackgroundColor = Color.Red
             }, 0, 4);
              Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
 
             grid.Children.Add(new Editor
             {
+                BackgroundColor = Color.Green
                 //Text = _task == null ? string.Empty : _task.Notes
-            }, 1, 4);
+            }, 2, 4);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
             
