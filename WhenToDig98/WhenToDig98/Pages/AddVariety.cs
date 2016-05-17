@@ -109,15 +109,21 @@ namespace WhenToDig98.Pages
             switch (((Button)sender).Text)
             {
                 case "Save":
-                    //var layout = (StackLayout)this.Content;
-                    //var grid = (Grid)layout.Children[0];
+                
+                    var layout = (StackLayout)this.Content;
+                    var grid = (Grid)layout.Children[0];
 
-                    //var name = ((Editor)grid.Children[1]).Text;
-                    //var plantType = ((Editor)grid.Children[3]).Text;
-                    //var plantTime = ((Editor)grid.Children[5]).Text;
-                    //var harvestTime = ((Editor)grid.Children[7]).Text;                        
-
-                    //_database.AddPlant(_plant.ID, name, plantType, plantTime, harvestTime);
+                    var name = ((Editor)grid.Children[1]).Text;
+                    var plantNotes = ((Editor)grid.Children[3]).Text;
+                    var harvestNotes = ((Editor)grid.Children[5]).Text;
+                
+                    var variety = new Variety{
+                        Name = name,
+                        PlantingNotes = plantNotes,
+                        HarvestingNotes = harvestNotes
+                    }
+                
+                    MessagingCenter.Send<AddVariety, Variety>(this, "new variety", variety)
 
                     Navigation.PopAsync();
                     break;
