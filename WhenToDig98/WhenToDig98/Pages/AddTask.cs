@@ -51,6 +51,14 @@ namespace WhenToDig98.Pages
 
             // date entry
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition {  });
+            grid.RowDefinitions.Add(new RowDefinition {  });
+            grid.RowDefinitions.Add(new RowDefinition {  });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
 
             grid.Children.Add(new Label
             {
@@ -68,9 +76,7 @@ namespace WhenToDig98.Pages
             }, 1, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
 
-            // type entry
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
+            // type entry           
             var typePicker = new Picker();
             var selectedTypeIndex = -1;
             for (int i = 0; i < _taskTypes.Length; i++)
@@ -95,8 +101,6 @@ namespace WhenToDig98.Pages
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
 
             // plant entry
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
             var plantPicker = new Picker();
             var selectedPlantIndex = -1;
             foreach(var plant in _plants)
@@ -153,8 +157,7 @@ namespace WhenToDig98.Pages
             }, 1, 4);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
-
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            
             grid.Children.Add(new Button { Text = "Save" }, 0, 7);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveTaskOnButtonClicked;

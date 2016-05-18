@@ -29,9 +29,8 @@ namespace WhenToDig98.Pages
 
             this.Content = new StackLayout
             {
-                BackgroundColor = Color.Silver,
                 Padding = new Thickness(5, 10),
-               // VerticalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.StartAndExpand,
                 Children = {
                     grid
                 }
@@ -42,17 +41,17 @@ namespace WhenToDig98.Pages
         {
            Grid grid = new Grid
             {
-               //VerticalOptions = LayoutOptions.StartAndExpand
+               VerticalOptions = LayoutOptions.StartAndExpand
            };
 
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition {  });
             grid.RowDefinitions.Add(new RowDefinition {  });
             grid.RowDefinitions.Add(new RowDefinition {  });
             grid.RowDefinitions.Add(new RowDefinition {  });
             grid.RowDefinitions.Add(new RowDefinition {  });
             grid.RowDefinitions.Add(new RowDefinition {  });
-            grid.RowDefinitions.Add(new RowDefinition {  });
-            grid.RowDefinitions.Add(new RowDefinition {  });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
             grid.Children.Add(new Label
             {
@@ -85,8 +84,7 @@ namespace WhenToDig98.Pages
             }, 1, 1);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
-
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+           
             grid.Children.Add(new Label
             {
                 Text = "Harvest",
@@ -103,7 +101,6 @@ namespace WhenToDig98.Pages
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
 
-            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Save" }, 0, 7);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveVarietyOnButtonClicked;
