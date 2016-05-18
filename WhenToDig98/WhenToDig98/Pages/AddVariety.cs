@@ -42,8 +42,7 @@ namespace WhenToDig98.Pages
         {
            Grid grid = new Grid
             {
-               BackgroundColor=Color.Green,
-               VerticalOptions = LayoutOptions.StartAndExpand
+               //VerticalOptions = LayoutOptions.StartAndExpand
            };
 
             grid.RowDefinitions.Add(new RowDefinition {  });
