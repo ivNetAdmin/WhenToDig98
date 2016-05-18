@@ -61,12 +61,12 @@ namespace WhenToDig98.Pages
             {
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 0);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);         
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Label
             {
-                Text = "Type",
+                Text = "Plant",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
@@ -76,12 +76,12 @@ namespace WhenToDig98.Pages
             {
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 1);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Label
             {
-                Text = "Sow",
+                Text = "Harvest",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
@@ -91,12 +91,12 @@ namespace WhenToDig98.Pages
             {
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 2);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Label
             {
-                Text = "Reap",
+                Text = "Type",
                 TextColor = Color.Silver,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center
@@ -106,8 +106,7 @@ namespace WhenToDig98.Pages
             {
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 3);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
-
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             //grid.Children.Add(new Label
             //{
             //    Text = "Sow Note",
@@ -140,21 +139,21 @@ namespace WhenToDig98.Pages
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Add Variety" }, 0, 4);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += AddVarietyOnButtonClicked;
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(GetVarietyList(), 0, 5);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Save" }, 0, 6);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
 
             // grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Cancel" }, 4, 6);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
 
             return grid;
