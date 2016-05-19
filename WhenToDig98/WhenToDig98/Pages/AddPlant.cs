@@ -181,9 +181,11 @@ namespace WhenToDig98.Pages
             {
                 var button = new Button
                 {
-                    Text = _varietyList[i].Name
+                    Text = _varietyList[i].Name,
+                    ClassIdProperty = _varietyList[i].ID
                 };
-                               
+                button.Clicked += AddVarietyOnButtonClicked;
+
                 if (currentColumn > 2)
                 {
                     currentColumn=0;
