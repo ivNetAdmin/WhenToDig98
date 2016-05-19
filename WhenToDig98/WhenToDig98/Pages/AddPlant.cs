@@ -24,28 +24,8 @@ namespace WhenToDig98.Pages
                 _varietyList = new ObservableCollection<Variety>();
                 _varietyList.Add(new Variety
                 {
+                    ID = 0,
                     Name = "New"
-                });
-
-                _varietyList.Add(new Variety
-                {
-                    Name = "Early"
-                });
-                _varietyList.Add(new Variety
-                {
-                    Name = "Late"
-                });
-                _varietyList.Add(new Variety
-                {
-                    Name = "Zoe"
-                });
-                _varietyList.Add(new Variety
-                {
-                    Name = "Cakes"
-                });
-                _varietyList.Add(new Variety
-                {
-                    Name = "mum"
                 });
             }
             else
@@ -201,124 +181,6 @@ namespace WhenToDig98.Pages
             return grid;
         }
 
-        //private ListView GetVarietyButtonList()
-        //{
-                     
-        //    ListView listView = new ListView
-        //    {
-                // Source of data items.
-        //        ItemsSource = _varietyList,
-        //        RowHeight=40,
-                
-               // BackgroundColor=Color.Red,
-
-                // Define template for displaying each item (Argument of DataTemplate constructor is called for each item; it must return a Cell derivative.)
-         //       ItemTemplate = new DataTemplate(() => {
-
-                    // Create views with bindings for displaying each property.
-        //            Button button = new Button();
-        //            button.SetBinding(Button.TextProperty, "Name");
-        //            button.HorizontalOptions = LayoutOptions.Start;
-                    
-               
-                   // BoxView boxView = new BoxView();
-        
-
-        //            return new ViewCell
-        //            {
-             
-        //                View = new StackLayout
-        //                {
-        //                    Orientation=StackOrientation.Horizontal,
-        //                    BackgroundColor=Color.Blue,
-        //                    HorizontalOptions=LayoutOptions.Start,
-        //                    Children = {
-        //                       button
-        //                    }
-        //                }
-        //            };
-        //        })
-        //    };
-        //    return listView;
-        //}
-
-        //private ListView GetVarietyList()
-        //{
-        //    var listView = new ListView
-        //    {
-        //        RowHeight = 40,
-        //        ItemsSource = _varietyList,
-        //        ItemTemplate = new DataTemplate(() =>
-        //        {
-        //            // var menuItem = new MenuItem
-        //            var name = new Label
-        //            {
-        //                HorizontalTextAlignment = TextAlignment.Center,
-        //                VerticalTextAlignment = TextAlignment.Center
-        //                // BackgroundColor = Color.Yellow
-        //            };
-        //            name.SetBinding(Label.TextProperty, "Name");
-
-        //            //var description = new Label
-        //            //{
-        //            //    HorizontalTextAlignment = TextAlignment.Start,
-        //            //    VerticalTextAlignment = TextAlignment.Center,
-        //            //    //BackgroundColor = Color.Red
-        //            //};
-        //            //description.SetBinding(Label.TextProperty, "Description");
-
-        //            //var typeImage = new Image
-        //            //{
-        //            //    //BackgroundColor = Color.Blue
-        //            //};
-        //            //typeImage.SetBinding(Image.SourceProperty, "TaskTypeImage");
-
-        //            Grid grid = new Grid
-        //            {
-        //                VerticalOptions = LayoutOptions.Fill
-        //            };
-
-        //            grid.RowDefinitions.Add(new RowDefinition
-        //            {
-        //                Height = GridLength.Auto
-        //            });
-
-        //            var deleteButton = new Button
-        //            {
-        //                Text = "X",
-        //                TextColor = Color.Red
-        //            };
-        //            deleteButton.SetBinding(Button.ClassIdProperty, "ID");
-
-        //            // grid.Children.Add(id,-1,0);
-        //            grid.Children.Add(name, 0, 0);
-        //            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-        //            //grid.Children.Add(typeImage, 1, 0);
-        //            //Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-        //            //grid.Children.Add(description, 2, 0);
-        //            //Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-        //            grid.Children.Add(deleteButton, 5, 0);
-        //            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-
-        //         //   ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
-
-        //            var viewCell = new ViewCell
-        //            {
-        //                View = grid
-        //            };
-
-        //            viewCell.SetBinding(ViewCell.ClassIdProperty, "ID");
-
-        //          //  viewCell.Tapped += TaskRowTapped;
-
-        //            return viewCell;
-        //        })
-        //    };
-
-        //    return listView;
-
-        //}
-
         private void AddVarietyOnButtonClicked(object sender, EventArgs e)
         {
             //var addVariety = new AddVariety(_database);
@@ -327,7 +189,10 @@ namespace WhenToDig98.Pages
                 _varietyList.Add(variety);
                 BuildForm();
             });
-            Navigation.PushAsync(new AddVariety(_database));
+
+            var varietyIdString = ((Button)sender).ClassId;
+
+            Navigation.PushAsync(new AddVariety(_database, Convert.ToInt32(varietyIdString)));
         }
 
         private void SavePlantOnButtonClicked(object sender, EventArgs e)
@@ -339,11 +204,17 @@ namespace WhenToDig98.Pages
                     var grid = (Grid)layout.Children[0];
 
                     var name = ((Editor)grid.Children[1]).Text;
-                    var plantType = ((Editor)grid.Children[3]).Text;
-                    var plantTime = ((Editor)grid.Children[5]).Text;
-                    var harvestTime = ((Editor)grid.Children[7]).Text;                        
+                    
+                    var plantTime = ((Editor)grid.Children[3]).Text;
+                    var harvestTime = ((Editor)grid.Children[5]).Text;
+                    var plantType = ((Editor)grid.Children[7]).Text;
 
-                    _database.AddPlant(_currentPlant.ID, name, plantType, plantTime, harvestTime);
+                    var plantId =_database.AddPlant(_currentPlant.ID, name, plantType, plantTime, harvestTime);
+
+                    foreach(var variety in _varietyList)
+                    {
+                        _database.AddVariety(variety.ID, variety.Name, variety.PlantingNotes, variety.HarvestingNotes, plantId);
+                    }
 
                     Navigation.PopToRootAsync();
                     break;

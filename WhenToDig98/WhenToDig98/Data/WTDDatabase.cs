@@ -84,7 +84,7 @@ namespace WhenToDig98.Data
             return _connection.Table<Plant>().FirstOrDefault(t => t.ID == id);
         }
 
-        internal void AddPlant(int id, string name, string plantType, string plantTime, string harvestTime)
+        internal int AddPlant(int id, string name, string plantType, string plantTime, string harvestTime)
         {
             var newPlant = new Plant
             {
@@ -103,6 +103,8 @@ namespace WhenToDig98.Data
                 newPlant.ID = id;
                 _connection.Update(newPlant);
             }
+
+            return newPlant.ID;
         }
         #endregion
 
@@ -117,7 +119,26 @@ namespace WhenToDig98.Data
             return new ObservableCollection<Variety>();
         }
 
+        internal void AddVariety(int id, string name, string plantingNotes, string harvestingNotes, int plantId)
+        {
+            var newVariety = new Variety
+            {
+                Name = name,
+                PlantingNotes = plantingNotes,
+                HarvestingNotes= harvestingNotes,
+                PlantID = plantId
+            };
 
+            if (id == 0)
+            {
+                _connection.Insert(newVariety);
+            }
+            else
+            {
+                newVariety.ID = id;
+                _connection.Update(newVariety);
+            }
+        }
         #endregion
 
     }

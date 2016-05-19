@@ -64,7 +64,7 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Notes
+                Text = _variety == null ? string.Empty : _variety.Name
             }, 1, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
@@ -80,7 +80,7 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Notes
+                Text = _variety == null ? string.Empty : _variety.PlantingNotes
             }, 1, 1);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
@@ -96,7 +96,7 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Notes
+                Text = _variety == null ? string.Empty : _variety.HarvestingNotes
             }, 1, 4);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
             Grid.SetRowSpan(grid.Children[grid.Children.Count - 1], 3);
