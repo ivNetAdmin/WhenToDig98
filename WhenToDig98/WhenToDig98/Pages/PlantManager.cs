@@ -58,14 +58,14 @@ namespace WhenToDig98.Pages
             grid.Children.Add(new Button
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = "Edit Plant",
+                Text = "New Plant",
             }, 0, 0);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += EditPlantOnButtonClicked;
 
             grid.Children.Add(new Button
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = "New Plant",
+                Text = "Edit Plant",
             }, 1, 0);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += NewPlantOnButtonClicked;
 

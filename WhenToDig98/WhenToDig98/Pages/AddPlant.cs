@@ -22,6 +22,15 @@ namespace WhenToDig98.Pages
             {
                 _currentPlant = null;
                 _varietyList = new ObservableCollection<Variety>();
+                _varietyList.Add(new Variety
+                {
+                    Name = "New"
+                });
+
+                _varietyList.Add(new Variety
+                {
+                    Name = "Early"
+                });
             }
             else
             {
@@ -45,7 +54,7 @@ namespace WhenToDig98.Pages
         {
             Grid grid = new Grid
             {
-                VerticalOptions = LayoutOptions.Fill
+                VerticalOptions = LayoutOptions.StartAndExpand
             };
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -119,6 +128,9 @@ namespace WhenToDig98.Pages
                 VerticalTextAlignment = TextAlignment.Center
             }, 0, 4);
 
+            grid.Children.Add(GetVarietyButtonList(), 1, 4);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
+
             grid.Children.Add(new Button { Text = "Save" }, 0, 5);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
@@ -131,82 +143,123 @@ namespace WhenToDig98.Pages
             return grid;
         }
 
-        private ListView GetVarietyList()
+        private ListView GetVarietyButtonList()
         {
-            var listView = new ListView
+                     
+            ListView listView = new ListView
             {
-                RowHeight = 40,
+                // Source of data items.
                 ItemsSource = _varietyList,
-                ItemTemplate = new DataTemplate(() =>
-                {
-                    // var menuItem = new MenuItem
-                    var name = new Label
+                RowHeight=40,
+                
+               // BackgroundColor=Color.Red,
+
+                // Define template for displaying each item (Argument of DataTemplate constructor is called for each item; it must return a Cell derivative.)
+                ItemTemplate = new DataTemplate(() => {
+
+                    // Create views with bindings for displaying each property.
+                    Button button = new Button();
+                    button.SetBinding(Button.TextProperty, "Name");
+                    button.HorizontalOptions = LayoutOptions.Start;
+                    
+               
+                   // BoxView boxView = new BoxView();
+        
+
+                    return new ViewCell
                     {
-                        HorizontalTextAlignment = TextAlignment.Center,
-                        VerticalTextAlignment = TextAlignment.Center
-                        // BackgroundColor = Color.Yellow
+             
+                        View = new StackLayout
+                        {
+                            Orientation=StackOrientation.Horizontal,
+                            BackgroundColor=Color.Blue,
+                            HorizontalOptions=LayoutOptions.Start,
+                            Children = {
+                               button
+                            }
+                        }
                     };
-                    name.SetBinding(Label.TextProperty, "Name");
-
-                    //var description = new Label
-                    //{
-                    //    HorizontalTextAlignment = TextAlignment.Start,
-                    //    VerticalTextAlignment = TextAlignment.Center,
-                    //    //BackgroundColor = Color.Red
-                    //};
-                    //description.SetBinding(Label.TextProperty, "Description");
-
-                    //var typeImage = new Image
-                    //{
-                    //    //BackgroundColor = Color.Blue
-                    //};
-                    //typeImage.SetBinding(Image.SourceProperty, "TaskTypeImage");
-
-                    Grid grid = new Grid
-                    {
-                        VerticalOptions = LayoutOptions.Fill
-                    };
-
-                    grid.RowDefinitions.Add(new RowDefinition
-                    {
-                        Height = GridLength.Auto
-                    });
-
-                    var deleteButton = new Button
-                    {
-                        Text = "X",
-                        TextColor = Color.Red
-                    };
-                    deleteButton.SetBinding(Button.ClassIdProperty, "ID");
-
-                    // grid.Children.Add(id,-1,0);
-                    grid.Children.Add(name, 0, 0);
-                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-                    //grid.Children.Add(typeImage, 1, 0);
-                    //Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-                    //grid.Children.Add(description, 2, 0);
-                    //Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-                    grid.Children.Add(deleteButton, 5, 0);
-                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
-
-                 //   ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
-
-                    var viewCell = new ViewCell
-                    {
-                        View = grid
-                    };
-
-                    viewCell.SetBinding(ViewCell.ClassIdProperty, "ID");
-
-                  //  viewCell.Tapped += TaskRowTapped;
-
-                    return viewCell;
                 })
             };
-
             return listView;
-
         }
+
+        //private ListView GetVarietyList()
+        //{
+        //    var listView = new ListView
+        //    {
+        //        RowHeight = 40,
+        //        ItemsSource = _varietyList,
+        //        ItemTemplate = new DataTemplate(() =>
+        //        {
+        //            // var menuItem = new MenuItem
+        //            var name = new Label
+        //            {
+        //                HorizontalTextAlignment = TextAlignment.Center,
+        //                VerticalTextAlignment = TextAlignment.Center
+        //                // BackgroundColor = Color.Yellow
+        //            };
+        //            name.SetBinding(Label.TextProperty, "Name");
+
+        //            //var description = new Label
+        //            //{
+        //            //    HorizontalTextAlignment = TextAlignment.Start,
+        //            //    VerticalTextAlignment = TextAlignment.Center,
+        //            //    //BackgroundColor = Color.Red
+        //            //};
+        //            //description.SetBinding(Label.TextProperty, "Description");
+
+        //            //var typeImage = new Image
+        //            //{
+        //            //    //BackgroundColor = Color.Blue
+        //            //};
+        //            //typeImage.SetBinding(Image.SourceProperty, "TaskTypeImage");
+
+        //            Grid grid = new Grid
+        //            {
+        //                VerticalOptions = LayoutOptions.Fill
+        //            };
+
+        //            grid.RowDefinitions.Add(new RowDefinition
+        //            {
+        //                Height = GridLength.Auto
+        //            });
+
+        //            var deleteButton = new Button
+        //            {
+        //                Text = "X",
+        //                TextColor = Color.Red
+        //            };
+        //            deleteButton.SetBinding(Button.ClassIdProperty, "ID");
+
+        //            // grid.Children.Add(id,-1,0);
+        //            grid.Children.Add(name, 0, 0);
+        //            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+        //            //grid.Children.Add(typeImage, 1, 0);
+        //            //Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+        //            //grid.Children.Add(description, 2, 0);
+        //            //Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+        //            grid.Children.Add(deleteButton, 5, 0);
+        //            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+
+        //         //   ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
+
+        //            var viewCell = new ViewCell
+        //            {
+        //                View = grid
+        //            };
+
+        //            viewCell.SetBinding(ViewCell.ClassIdProperty, "ID");
+
+        //          //  viewCell.Tapped += TaskRowTapped;
+
+        //            return viewCell;
+        //        })
+        //    };
+
+        //    return listView;
+
+        //}
 
         private void AddVarietyOnButtonClicked(object sender, EventArgs e)
         {
@@ -242,4 +295,6 @@ namespace WhenToDig98.Pages
             }
         }
     }
+
+   
 }
