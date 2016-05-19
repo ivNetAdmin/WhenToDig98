@@ -31,6 +31,22 @@ namespace WhenToDig98.Pages
                 {
                     Name = "Early"
                 });
+                _varietyList.Add(new Variety
+                {
+                    Name = "Late"
+                });
+                _varietyList.Add(new Variety
+                {
+                    Name = "Zoe"
+                });
+                _varietyList.Add(new Variety
+                {
+                    Name = "Cakes"
+                });
+                _varietyList.Add(new Variety
+                {
+                    Name = "mum"
+                });
             }
             else
             {
@@ -63,7 +79,7 @@ namespace WhenToDig98.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            
+
             grid.Children.Add(new Label
             {
                 Text = "Name",
@@ -76,7 +92,7 @@ namespace WhenToDig98.Pages
             {
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 0);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);         
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
             grid.Children.Add(new Label
             {
@@ -119,7 +135,7 @@ namespace WhenToDig98.Pages
                 //Text = _task == null ? string.Empty : _task.Description
             }, 1, 3);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
-          
+
             grid.Children.Add(new Label
             {
                 Text = "Variety",
@@ -143,35 +159,42 @@ namespace WhenToDig98.Pages
             return grid;
         }
 
-        private Gird GetVarietyButtonList()
+        private Grid GetVarietyButtonList()
         {
-            var rows = _varietyList.Count/3;
-            
+            var rows = _varietyList.Count / 3;
+
+            if (_varietyList.Count % 3 != 0) rows++;
+
             Grid grid = new Grid
             {
-                VerticalOptions = LayoutOptions.StartAndExpand
+                VerticalOptions = LayoutOptions.Start
             };
-            
-            for(int i=0;i<rows;i++)
+
+            for (int i = 0; i < rows; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }
-            
-            var currentRow = 0
-            var currentColumn = 0
-            for(int i=0;i<_varietyList.Count;i++)
+
+            var currentRow = 0;
+            var currentColumn = 0;
+            for (var i = 0; i < _varietyList.Count; i++)
             {
-                var button = new Button{
-                    Text =_varietyList[i].Name
-                };
-                grid.Children.Add(button), currentColumn, currentRow);
-                currentColumn = i;
-                if(currentColumn>3)
+                var button = new Button
                 {
-                currentColumn++;
-                currentRow = 0;
+                    Text = _varietyList[i].Name
+                };
+                               
+                if (currentColumn > 2)
+                {
+                    currentColumn=0;
+                    currentRow++;
                 }
+
+                grid.Children.Add(button, currentColumn, currentRow);
+                currentColumn++;
             }
+
+            return grid;
         }
 
         //private ListView GetVarietyButtonList()
