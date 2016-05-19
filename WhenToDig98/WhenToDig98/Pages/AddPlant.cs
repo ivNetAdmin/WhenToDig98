@@ -52,22 +52,24 @@ namespace WhenToDig98.Pages
             {
                 _currentPlant = _database.GetPlant(plantId);
                 _varietyList = _database.GetPlantVarieties(plantId);
-            }
-
-            var grid = BuildForm();
+            }            
 
             this.Content = new StackLayout
             {
                 Padding = new Thickness(5, 10),
-                VerticalOptions = LayoutOptions.StartAndExpand,
-                Children = {
-                    grid
-                }
+                VerticalOptions = LayoutOptions.StartAndExpand
             };
+
+            BuildForm();
         }
 
-        private Grid BuildForm()
+        private void BuildForm()
         {
+            if (this.Content != null)
+            {
+                ((StackLayout)this.Content).Children.Clear();
+            }
+
             Grid grid = new Grid
             {
                 VerticalOptions = LayoutOptions.StartAndExpand
@@ -156,7 +158,7 @@ namespace WhenToDig98.Pages
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
 
-            return grid;
+            ((StackLayout)this.Content).Children.Add(grid);
         }
 
         private Grid GetVarietyButtonList()
@@ -182,7 +184,7 @@ namespace WhenToDig98.Pages
                 var button = new Button
                 {
                     Text = _varietyList[i].Name,
-                    ClassIdProperty = _varietyList[i].ID
+                    ClassId = _varietyList[i].ID.ToString()
                 };
                 button.Clicked += AddVarietyOnButtonClicked;
 
