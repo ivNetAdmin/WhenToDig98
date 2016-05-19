@@ -143,46 +143,77 @@ namespace WhenToDig98.Pages
             return grid;
         }
 
-        private ListView GetVarietyButtonList()
+        private Gird GetVarietyButtonList()
         {
-                     
-            ListView listView = new ListView
+            var rows = _varietyList.Count/3;
+            
+            Grid grid = new Grid
             {
+                VerticalOptions = LayoutOptions.StartAndExpand
+            };
+            
+            for(int i=0;i<rows;i++)
+            {
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            }
+            
+            var currentRow = 0
+            var currentColumn = 0
+            for(int i=0;i<_varietyList.Count;i++)
+            {
+                var button = new Button{
+                    Text =_varietyList[i].Name
+                };
+                grid.Children.Add(button), currentColumn, currentRow);
+                currentColumn = i;
+                if(currentColumn>3)
+                {
+                currentColumn++;
+                currentRow = 0;
+                }
+            }
+        }
+
+        //private ListView GetVarietyButtonList()
+        //{
+                     
+        //    ListView listView = new ListView
+        //    {
                 // Source of data items.
-                ItemsSource = _varietyList,
-                RowHeight=40,
+        //        ItemsSource = _varietyList,
+        //        RowHeight=40,
                 
                // BackgroundColor=Color.Red,
 
                 // Define template for displaying each item (Argument of DataTemplate constructor is called for each item; it must return a Cell derivative.)
-                ItemTemplate = new DataTemplate(() => {
+         //       ItemTemplate = new DataTemplate(() => {
 
                     // Create views with bindings for displaying each property.
-                    Button button = new Button();
-                    button.SetBinding(Button.TextProperty, "Name");
-                    button.HorizontalOptions = LayoutOptions.Start;
+        //            Button button = new Button();
+        //            button.SetBinding(Button.TextProperty, "Name");
+        //            button.HorizontalOptions = LayoutOptions.Start;
                     
                
                    // BoxView boxView = new BoxView();
         
 
-                    return new ViewCell
-                    {
+        //            return new ViewCell
+        //            {
              
-                        View = new StackLayout
-                        {
-                            Orientation=StackOrientation.Horizontal,
-                            BackgroundColor=Color.Blue,
-                            HorizontalOptions=LayoutOptions.Start,
-                            Children = {
-                               button
-                            }
-                        }
-                    };
-                })
-            };
-            return listView;
-        }
+        //                View = new StackLayout
+        //                {
+        //                    Orientation=StackOrientation.Horizontal,
+        //                    BackgroundColor=Color.Blue,
+        //                    HorizontalOptions=LayoutOptions.Start,
+        //                    Children = {
+        //                       button
+        //                    }
+        //                }
+        //            };
+        //        })
+        //    };
+        //    return listView;
+        //}
 
         //private ListView GetVarietyList()
         //{
