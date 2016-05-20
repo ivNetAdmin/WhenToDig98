@@ -104,7 +104,10 @@ namespace WhenToDig98.Pages
                     {
                         View = name
                     };
-                    
+                    viewCell.SetBinding(ViewCell.ClassIdProperty, "ID");
+
+                    viewCell.Tapped += TaskRowTapped;
+
                     return viewCell;
                 })
             };
