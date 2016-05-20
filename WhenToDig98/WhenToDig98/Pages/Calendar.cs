@@ -22,8 +22,6 @@ namespace WhenToDig98.Pages
             _weekDays = new[] { "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
             _currentCallendarDate = DateTime.Now;           
 
-            // _database.ResetDb();
-
             Padding = new Thickness(10);            
 
             this.Content = new StackLayout

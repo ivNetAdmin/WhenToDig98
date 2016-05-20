@@ -12,13 +12,11 @@ namespace WhenToDig98.Pages
     {
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
-        private int _currentPlant;
+        private Plant _currentPlant;
 
         public PlantManager(WTDDatabase database)
         {
             _database = database;
-
-            // _database.ResetPlants();
 
             Padding = new Thickness(10);
 
@@ -42,14 +40,19 @@ namespace WhenToDig98.Pages
          {
              // get plants
             _plants = _database.GetPlants();
-            _currentPlant = _plants.FirstOrDefault();
-            
+
+            foreach (var plant in _plants)
+            {
+                _currentPlant = plant;
+                break;
+            }
+
             var grid = new Grid
             {
                 VerticalOptions = LayoutOptions.Fill
             };
             
-            for(int i = 0; i < 6; i++;)
+            for(int i = 0; i < 4; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }  
@@ -115,45 +118,35 @@ namespace WhenToDig98.Pages
             return listView;
         }
         
-        private Grid DisplayPlantInformation(grid)
-        {
+        private Grid DisplayPlantInformation(Grid grid)
+        {            
             grid.Children.Clear();
-            
+            if (_currentPlant == null) return grid;
+
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = _currentPlant.PlantDisplayName,
             }, 0, 0);
-            
+
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = "Planting Time",
+                Text = string.Format("Planting Time: {0}", _currentPlant.PlantingTime)
             }, 0, 1);
-            
+                    
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = _currentPlant.PlantingTime ,
+                Text = string.Format("Harvesting Time: {0}", _currentPlant.HarvestingTime)
             }, 0, 2);
             
-            grid.Children.Add(new Label
-            {
-                VerticalOptions = LayoutOptions.Fill,
-                Text = "Harvesting Time",
-            }, 0, 3);
-            
-            grid.Children.Add(new Label
-            {
-                VerticalOptions = LayoutOptions.Fill,
-                Text = _currentPlant.HarvestingTime  ,
-            }, 0, 4);
             return grid;
         }
 
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddPlant(_database, _currentPlant));
+            Navigation.PushAsync(new AddPlant(_database, _currentPlant.ID));
         }
 
         private void NewPlantOnButtonClicked(object sender, EventArgs e)
@@ -167,10 +160,10 @@ namespace WhenToDig98.Pages
             
             foreach(var plant in _plants)
             {
-               if(plant.ID = id) 
+               if(plant.ID == id) 
                {
                   _currentPlant = plant;
-                  var grid = ((StackLayout)this.Content).Children[0];
+                  var grid = (Grid)((StackLayout)this.Content).Children[0];
                   DisplayPlantInformation(grid);
                   break;
                }
