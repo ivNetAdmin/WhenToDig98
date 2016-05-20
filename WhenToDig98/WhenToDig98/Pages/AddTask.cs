@@ -183,8 +183,9 @@ namespace WhenToDig98.Pages
             foreach(var plant in _plants)
             {
                 if (plant.ID == selectedplant.ID) return i;
+                i++;
             }
-            return i;
+            return -1;
         }
 
         private void SaveTaskOnButtonClicked(object sender, EventArgs e)
@@ -194,10 +195,16 @@ namespace WhenToDig98.Pages
                 case "Save":
                     var layout = (StackLayout)this.Content;
                     var grid = (Grid)layout.Children[0];
-
                     var date = ((DatePicker)grid.Children[1]).Date;
                     var taskType = ((Picker)grid.Children[3]).SelectedIndex + 1; // to make the background images work 
-                  //  var plant = _plants[((Picker)grid.Children[5]).SelectedIndex];
+                    var plant = ((List<Plant>)_plants)[((Picker)grid.Children[5]).SelectedIndex];
+
+                    var plantName = plant == null ? string.Empty :
+             string.Format("{0}{1}",
+             plant.Name,
+             string.IsNullOrEmpty(plant.Type) ? string.Empty : string.Format(" ({0})", plant.Type));
+
+
                     var description = ((Editor)grid.Children[7]).Text;
                     var notes = ((Editor)grid.Children[9]).Text;
 
@@ -206,7 +213,7 @@ namespace WhenToDig98.Pages
 
                     var taskId = _task == null ? 0 : _task.ID;
 
-                    _database.AddTask(taskId, description, notes, taskType, date, null /*plant*/);
+                    _database.AddTask(taskId, description, notes, taskType, date, plantName);
 
                     Navigation.PopToRootAsync();
                     break;

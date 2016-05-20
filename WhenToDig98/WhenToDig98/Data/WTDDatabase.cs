@@ -21,6 +21,15 @@ namespace WhenToDig98.Data
             _connection.CreateTable<Variety>();
         }
 
+
+        public void ResetDb()
+        {
+            _connection.DeleteAll<Variety>();
+            _connection.DeleteAll<Plant>();
+            _connection.DeleteAll<Task>();
+        }
+
+
         #region tasks
         public IEnumerable<Task> GetTasks()
         {
@@ -47,11 +56,6 @@ namespace WhenToDig98.Data
                 newTask.ID = id;
                 _connection.Update(newTask);
             }
-        }
-
-        public void ResetTasks()
-        {
-            _connection.DeleteAll<Task>();
         }
 
         public IEnumerable<Task> GetTasksByMonth(DateTime _currentCallendarDate)
