@@ -13,6 +13,7 @@ namespace WhenToDig98.Pages
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
         private Plant _currentPlant;
+        private Label varietyInformation;
 
         public PlantManager(WTDDatabase database)
         {
@@ -52,7 +53,7 @@ namespace WhenToDig98.Pages
                 VerticalOptions = LayoutOptions.Fill
             };
             
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < 5; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }  
@@ -141,9 +142,31 @@ namespace WhenToDig98.Pages
                 Text = string.Format("Harvesting Time: {0}", _currentPlant.HarvestingTime)
             }, 0, 2);
             
+            grid.Children.Add(new Button
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Varieties",
+            }, 0, 3);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += ShowVarietiesOnButtonClicked;
+            
+            
+            varietyInformation = new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Variety stuff...",
+                IsVisible = false;
+            };
+            
+            grid.Children.Add(varietyInformation), 0, 4);
+            
             return grid;
         }
 
+        private void ShowVarietiesOnButtonClicked(object sender, EventArgs e)
+        {
+            varietyInformation.IsVisible = !varietyInformation.IsVisible;
+        }
+        
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new AddPlant(_database, _currentPlant == null ? 0 : _currentPlant.ID));
