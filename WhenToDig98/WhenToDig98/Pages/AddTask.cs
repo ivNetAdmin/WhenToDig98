@@ -105,17 +105,13 @@ namespace WhenToDig98.Pages
             var selectedPlantIndex = -1;
             foreach(var plant in _plants)
             {
-                var plantName = plant == null ? string.Empty :
-                string.Format("{0}{1}",
-                plant.Name,
-                string.IsNullOrEmpty(plant.Type) ? string.Empty : string.Format(" ({0})", plant.Type));
-
+               
                 if (_task != null)
                 {
-                    if (plantName == _task.Plant) selectedPlantIndex = SetPlantIndex(plant,_plants);
+                    if (plant.PlantDisplayName == _task.Plant) selectedPlantIndex = SetPlantIndex(plant,_plants);
                 }
 
-                plantPicker.Items.Add(plantName);
+                plantPicker.Items.Add(plant.PlantDisplayName);
             }
             if(selectedPlantIndex>-1)
             plantPicker.SelectedIndex = selectedPlantIndex;
@@ -203,7 +199,6 @@ namespace WhenToDig98.Pages
              string.Format("{0}{1}",
              plant.Name,
              string.IsNullOrEmpty(plant.Type) ? string.Empty : string.Format(" ({0})", plant.Type));
-
 
                     var description = ((Editor)grid.Children[7]).Text;
                     var notes = ((Editor)grid.Children[9]).Text;

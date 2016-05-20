@@ -45,7 +45,7 @@ namespace WhenToDig98.Pages
             
             ((StackLayout)this.Content).Children.Clear();
             ((StackLayout)this.Content).Children.Add(BuildPlantTaskBar());
-            BuildPlantList()
+            ((StackLayout)this.Content).Children.Add(BuildPlantList());
          }
          
          private Grid BuildPlantTaskBar()
@@ -73,7 +73,7 @@ namespace WhenToDig98.Pages
             return grid;
          }
 
-        private void BuildPlantList()
+        private ListView BuildPlantList()
         {
             var listView =  new ListView
             {
@@ -83,9 +83,8 @@ namespace WhenToDig98.Pages
                 {
                     var name = new Label
                     {
-                        HorizontalTextAlignment = TextAlignment.Left,
+                        HorizontalTextAlignment = TextAlignment.Center,
                         VerticalTextAlignment = TextAlignment.Center
-
                     };
                     name.SetBinding(Label.TextProperty, "PlantDisplayName");
                     

@@ -14,7 +14,9 @@ namespace WhenToDig98.Models
 
         public string PlantDisplayName
         {
-           get { return string.Format ("{0}{1}",this.Name,this.Type==null?string.Empty:string.Format(" ({0})",this.Type));}
+            get {
+                return string.Format("{0}{1}", this.Name, string.IsNullOrEmpty(this.Type) ? string.Empty : string.Format(" ({0})", this.Type));
+            }
         }
         
         public Plant()
