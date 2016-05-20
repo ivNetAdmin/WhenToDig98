@@ -12,6 +12,7 @@ namespace WhenToDig98.Pages
     {
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
+        private IEnumerable<Variety> _varieties;
         private Plant _currentPlant;
         private Label varietyInformation;
 
@@ -163,6 +164,11 @@ namespace WhenToDig98.Pages
         private void ShowVarietiesOnButtonClicked(object sender, EventArgs e)
         {
             varietyInformation.IsVisible = !varietyInformation.IsVisible;
+            
+            if(varietyInformation.IsVisible)
+            {
+                _varieties = _database.GetVarieties(_currentPlant.ID);
+            }
         }
         
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
