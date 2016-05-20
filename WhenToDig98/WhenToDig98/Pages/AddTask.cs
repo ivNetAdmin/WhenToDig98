@@ -105,11 +105,17 @@ namespace WhenToDig98.Pages
             var selectedPlantIndex = -1;
             foreach(var plant in _plants)
             {
+                var plantName = plant == null ? string.Empty :
+                string.Format("{0}{1}",
+                plant.Name,
+                string.IsNullOrEmpty(plant.Type) ? string.Empty : string.Format(" ({0})", plant.Type));
+
                 if (_task != null)
                 {
-                   // if (plant == _task.Plant) selectedPlantIndex = Array.FindIndex(_plants, index => index.Contains(plant));
+                    if (plantName == _task.Plant) selectedPlantIndex = SetPlantIndex(plant,_plants);
                 }
-              //  plantPicker.Items.Add(plant);
+
+                plantPicker.Items.Add(plantName);
             }
             if(selectedPlantIndex>-1)
             plantPicker.SelectedIndex = selectedPlantIndex;
@@ -168,6 +174,17 @@ namespace WhenToDig98.Pages
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SaveTaskOnButtonClicked;
 
             return grid;
+        }
+
+        private int SetPlantIndex(Plant selectedplant, IEnumerable<Plant> _plants)
+        {
+            // = Array.FindIndex(_plants, index => index.Contains(plantName))
+            var i = 0;
+            foreach(var plant in _plants)
+            {
+                if (plant.ID == selectedplant.ID) return i;
+            }
+            return i;
         }
 
         private void SaveTaskOnButtonClicked(object sender, EventArgs e)

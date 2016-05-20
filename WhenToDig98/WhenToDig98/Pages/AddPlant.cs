@@ -72,7 +72,12 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Description
+                Text = _currentPlant == null ? string.Empty : _currentPlant.Name
+
+                //Text = _currentPlant == null ? string.Empty : 
+                //string.Format("{0}{1}",
+                //_currentPlant.Name, 
+                //string.IsNullOrEmpty(_currentPlant.Type)?string.Empty:string.Format(" ({0})",_currentPlant.Type))
             }, 1, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
@@ -86,7 +91,7 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Description
+                Text = _currentPlant == null ? string.Empty : _currentPlant.PlantingTime
             }, 1, 1);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
@@ -100,7 +105,7 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Description
+                Text = _currentPlant == null ? string.Empty : _currentPlant.HarvestingTime
             }, 1, 2);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
@@ -114,7 +119,7 @@ namespace WhenToDig98.Pages
 
             grid.Children.Add(new Editor
             {
-                //Text = _task == null ? string.Empty : _task.Description
+                Text = _currentPlant == null ? string.Empty : _currentPlant.Type
             }, 1, 3);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
@@ -126,14 +131,20 @@ namespace WhenToDig98.Pages
                 VerticalTextAlignment = TextAlignment.Center
             }, 0, 4);
 
-            grid.Children.Add(GetVarietyButtonList(), 1, 4);
+            var varietyButtonListGrid = new Grid
+            {
+                VerticalOptions = LayoutOptions.Start
+            };
+
+            GetVarietyButtonList(varietyButtonListGrid);
+
+            grid.Children.Add(varietyButtonListGrid, 1, 4);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
             grid.Children.Add(new Button { Text = "Save" }, 0, 5);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
 
-            // grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.Children.Add(new Button { Text = "Cancel" }, 4, 5);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SavePlantOnButtonClicked;
@@ -141,16 +152,25 @@ namespace WhenToDig98.Pages
             ((StackLayout)this.Content).Children.Add(grid);
         }
 
-        private Grid GetVarietyButtonList()
+        private void BuildVarietyList()
         {
+            var contentGrid = ((Grid)((StackLayout)this.Content).Children[0]);
+
+            var buttonGrid = ((Grid)contentGrid.Children[9]);
+
+            buttonGrid.Children.Clear();
+
+            GetVarietyButtonList(buttonGrid);
+
+        }
+
+        private void GetVarietyButtonList(Grid grid)
+        {
+
             var rows = _varietyList.Count / 3;
 
             if (_varietyList.Count % 3 != 0) rows++;
 
-            Grid grid = new Grid
-            {
-                VerticalOptions = LayoutOptions.Start
-            };
 
             for (int i = 0; i < rows; i++)
             {
@@ -170,7 +190,7 @@ namespace WhenToDig98.Pages
 
                 if (currentColumn > 2)
                 {
-                    currentColumn=0;
+                    currentColumn = 0;
                     currentRow++;
                 }
 
@@ -178,7 +198,7 @@ namespace WhenToDig98.Pages
                 currentColumn++;
             }
 
-            return grid;
+            
         }
 
         private void AddVarietyOnButtonClicked(object sender, EventArgs e)
@@ -187,14 +207,14 @@ namespace WhenToDig98.Pages
             MessagingCenter.Subscribe<AddVariety, Variety>(this, "new variety", (page, variety) => {
 
                 _varietyList.Add(variety);
-                BuildForm();
+                BuildVarietyList();
             });
 
             var varietyIdString = ((Button)sender).ClassId;
 
             Navigation.PushAsync(new AddVariety(_database, Convert.ToInt32(varietyIdString)));
         }
-
+      
         private void SavePlantOnButtonClicked(object sender, EventArgs e)
         {
             switch (((Button)sender).Text)
@@ -209,7 +229,7 @@ namespace WhenToDig98.Pages
                     var harvestTime = ((Editor)grid.Children[5]).Text;
                     var plantType = ((Editor)grid.Children[7]).Text;
 
-                    var plantId =_database.AddPlant(_currentPlant.ID, name, plantType, plantTime, harvestTime);
+                    var plantId = _database.AddPlant(_currentPlant == null ? 0 : _currentPlant.ID, name, plantType, plantTime, harvestTime);
 
                     foreach(var variety in _varietyList)
                     {

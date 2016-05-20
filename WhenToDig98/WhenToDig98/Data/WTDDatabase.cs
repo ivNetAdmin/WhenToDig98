@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using WhenToDig98.Helpers;
 using WhenToDig98.Models;
 
 namespace WhenToDig98.Data
@@ -17,6 +18,7 @@ namespace WhenToDig98.Data
             _connection = Xamarin.Forms.DependencyService.Get<ISQLite>().GetConnection();
             _connection.CreateTable<Task>();
             _connection.CreateTable<Plant>();
+            _connection.CreateTable<Variety>();
         }
 
         #region tasks
@@ -52,7 +54,7 @@ namespace WhenToDig98.Data
             _connection.DeleteAll<Task>();
         }
 
-        internal IEnumerable<Task> GetTasksByMonth(DateTime _currentCallendarDate)
+        public IEnumerable<Task> GetTasksByMonth(DateTime _currentCallendarDate)
         {
 
             var startDate = new DateTime(_currentCallendarDate.Year, _currentCallendarDate.Month, 1);
@@ -84,7 +86,7 @@ namespace WhenToDig98.Data
             return _connection.Table<Plant>().FirstOrDefault(t => t.ID == id);
         }
 
-        internal int AddPlant(int id, string name, string plantType, string plantTime, string harvestTime)
+        public int AddPlant(int id, string name, string plantType, string plantTime, string harvestTime)
         {
             var newPlant = new Plant
             {
@@ -114,13 +116,15 @@ namespace WhenToDig98.Data
             return _connection.Table<Variety>().FirstOrDefault(t => t.ID == id);
         }
 
-        internal ObservableCollection<Variety> GetPlantVarieties(int plantId)
+        public ObservableCollection<Variety> GetPlantVarieties(int plantId)
         {
-            return new ObservableCollection<Variety>();
+            var varieties = (from p in _connection.Table<Variety>() select p).ToList();
+            return new List<Variety>().ToObservableCollection();
         }
 
-        internal void AddVariety(int id, string name, string plantingNotes, string harvestingNotes, int plantId)
+        public void AddVariety(int id, string name, string plantingNotes, string harvestingNotes, int plantId)
         {
+            if (name == "New") return;
             var newVariety = new Variety
             {
                 Name = name,
