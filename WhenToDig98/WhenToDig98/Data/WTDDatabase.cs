@@ -119,6 +119,11 @@ namespace WhenToDig98.Data
         {
             return _connection.Table<Variety>().FirstOrDefault(t => t.ID == id);
         }
+        
+        public Variety GetVarieties(int id)
+        {
+            return _connection.Table<Variety>().FirstOrDefault(t => t.PlantID == id);
+        }
 
         public ObservableCollection<Variety> GetPlantVarieties(int plantId)
         {
