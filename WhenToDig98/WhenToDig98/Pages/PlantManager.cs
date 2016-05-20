@@ -81,7 +81,20 @@ namespace WhenToDig98.Pages
                 ItemsSource = _plants,
                 ItemTemplate = new DataTemplate(() =>
                 {
+                    var name = new Label
+                    {
+                        HorizontalTextAlignment = TextAlignment.Left,
+                        VerticalTextAlignment = TextAlignment.Center
+
+                    };
+                    name.SetBinding(Label.TextProperty, "PlantDisplayName");
                     
+                    var viewCell = new ViewCell
+                    {
+                        View = name
+                    };
+                    
+                    return viewCell;
                 })
             };
             
