@@ -146,7 +146,7 @@ namespace WhenToDig98.Pages
 
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddPlant(_database, _currentPlant.ID));
+            Navigation.PushAsync(new AddPlant(_database, _currentPlant == null ? 0 : _currentPlant.ID));
         }
 
         private void NewPlantOnButtonClicked(object sender, EventArgs e)
