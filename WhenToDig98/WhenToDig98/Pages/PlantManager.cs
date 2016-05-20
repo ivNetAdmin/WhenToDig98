@@ -42,8 +42,20 @@ namespace WhenToDig98.Pages
          {
              // get plants
             _plants = _database.GetPlants();
+            _currentPlant = _plants.FirstOrDefault();
+            
+            var grid = new Grid
+            {
+                VerticalOptions = LayoutOptions.Fill
+            };
+            
+            for(int i = 0; i < 6; i++;)
+            {
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            }  
             
             ((StackLayout)this.Content).Children.Clear();
+            ((StackLayout)this.Content).Children.Add(DisplayPlantInformation(grid));
             ((StackLayout)this.Content).Children.Add(BuildPlantTaskBar());
             ((StackLayout)this.Content).Children.Add(BuildPlantList());
          }
@@ -98,6 +110,42 @@ namespace WhenToDig98.Pages
             };
             
             return listView;
+        }
+        
+        private Grid DisplayPlantInformation(grid)
+        {
+            grid.Children.Clear();
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = _currentPlant.PlantDisplayName,
+            }, 0, 0);
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Planting Time",
+            }, 0, 1);
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = _currentPlant.PlantingTime ,
+            }, 0, 2);
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Harvesting Time",
+            }, 0, 3);
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = _currentPlant.HarvestingTime  ,
+            }, 0, 4);
+            return grid;
         }
 
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
