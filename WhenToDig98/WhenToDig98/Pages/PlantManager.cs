@@ -45,6 +45,7 @@ namespace WhenToDig98.Pages
             
             ((StackLayout)this.Content).Children.Clear();
             ((StackLayout)this.Content).Children.Add(BuildPlantTaskBar());
+            BuildPlantList()
          }
          
          private Grid BuildPlantTaskBar()
@@ -71,6 +72,11 @@ namespace WhenToDig98.Pages
 
             return grid;
          }
+
+        private void BuildPlantList()
+        {
+            
+        }
 
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
         {
