@@ -154,10 +154,10 @@ namespace WhenToDig98.Pages
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = "Variety stuff...",
-                IsVisible = false;
+                IsVisible = false
             };
             
-            grid.Children.Add(varietyInformation), 0, 4);
+            grid.Children.Add(varietyInformation, 0, 4);
             
             return grid;
         }
