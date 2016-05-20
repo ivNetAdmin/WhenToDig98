@@ -160,6 +160,22 @@ namespace WhenToDig98.Pages
         {
             Navigation.PushAsync(new AddPlant(_database));
         }
+        
+        private void PlantRowTapped(object sender, EventArgs e)
+        {
+            var id = Convert.ToInt32(((ViewCell)sender).ClassId);
+            
+            foreach(var plant in _plants)
+            {
+               if(plant.ID = id) 
+               {
+                  _currentPlant = plant;
+                  var grid = ((StackLayout)this.Content).Children[0];
+                  DisplayPlantInformation(grid);
+                  break;
+               }
+            }
+        }
 
     }
 }
