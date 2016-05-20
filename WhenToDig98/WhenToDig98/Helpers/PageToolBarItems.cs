@@ -25,8 +25,7 @@ namespace WhenToDig98.Helpers
                 Icon = new FileImageSource
                 {
                     File = _currentPage.GetType().ToString().IndexOf("Calendar") != -1 ? "Calendar.png" : "CalendarLow.png"
-                }
-                                          
+                }                                          
             });
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
             _currentPage.ToolbarItems.Add(new ToolbarItem
