@@ -99,7 +99,7 @@ namespace WhenToDig98.Pages
                 {
                     var name = new Label
                     {
-                        HorizontalTextAlignment = TextAlignment.Center,
+                        //HorizontalTextAlignment = TextAlignment.Center,
                         VerticalTextAlignment = TextAlignment.Center
                     };
                     name.SetBinding(Label.TextProperty, "PlantDisplayName");
@@ -124,41 +124,39 @@ namespace WhenToDig98.Pages
             grid.Children.Clear();
             if (_currentPlant == null) return grid;
 
+            grid.Children.Add(new Button
+            {
+                VerticalOptions = LayoutOptions.Start,
+                Text = "Varieties",
+            }, 0, 0);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += ShowVarietiesOnButtonClicked;
+            
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = _currentPlant.PlantDisplayName,
-            }, 0, 0);
+            }, 0, 1);
 
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = string.Format("Planting Time: {0}", _currentPlant.PlantingTime)
-            }, 0, 1);
+            }, 0, 2);
                     
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = string.Format("Harvesting Time: {0}", _currentPlant.HarvestingTime)
-            }, 0, 2);
-            
-            grid.Children.Add(new Button
-            {
-                VerticalOptions = LayoutOptions.Fill,
-                Text = "Varieties",
             }, 0, 3);
-            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += ShowVarietiesOnButtonClicked;
             
-            
-            varietyInformation = new Label
+             varietyInformation = new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = "Variety stuff...",
                 IsVisible = false;
             };
-            
             grid.Children.Add(varietyInformation), 0, 4);
-            
+        
             return grid;
         }
 
