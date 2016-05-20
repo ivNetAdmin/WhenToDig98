@@ -75,7 +75,17 @@ namespace WhenToDig98.Pages
 
         private void BuildPlantList()
         {
+            var listView =  new ListView
+            {
+                RowHeight=40,
+                ItemsSource = _plants,
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    
+                })
+            };
             
+            return listView;
         }
 
         private void EditPlantOnButtonClicked(object sender, EventArgs e)
