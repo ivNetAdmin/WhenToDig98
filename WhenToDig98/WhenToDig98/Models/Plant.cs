@@ -12,12 +12,12 @@ namespace WhenToDig98.Models
         public string PlantingTime { get; set; }
         public string HarvestingTime { get; set; }   
 
+        public string PlantDisplayName
+        {
+           get { return string.Format ("{0}{1}",this.Name,this.Type==null?string.Empty:string.Format(" ({0})",this.Type));}
+        }
+        
         public Plant()
         { }
-        
-        public string GetPlantDisplayName()
-        {
-           return string.Format ("{0}{1}",this.Name,this.Type==null?string.Empty:string.Format(" ({0})",this.Type));
-        }
     }
 }
