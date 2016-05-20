@@ -74,10 +74,6 @@ namespace WhenToDig98.Pages
             {
                 Text = _currentPlant == null ? string.Empty : _currentPlant.Name
 
-                //Text = _currentPlant == null ? string.Empty : 
-                //string.Format("{0}{1}",
-                //_currentPlant.Name, 
-                //string.IsNullOrEmpty(_currentPlant.Type)?string.Empty:string.Format(" ({0})",_currentPlant.Type))
             }, 1, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 5);
 
