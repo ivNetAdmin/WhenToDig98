@@ -46,7 +46,16 @@ namespace WhenToDig98.Pages
            return new TableView {
                 Root = new TableRoot {
                     new TableSection{
-                    
+                        new EntryCell{
+                            Text = "Season"
+                        }, new EntryCell{
+                            Text = ""
+                        }
+                    },
+                    new TableSection{
+                         new EntryCell{
+                            Text = "Type"
+                        }
                     }
                 },
                 Intent = TableIntent.Settings
