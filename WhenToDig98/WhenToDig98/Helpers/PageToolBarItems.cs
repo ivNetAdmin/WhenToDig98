@@ -23,7 +23,7 @@ namespace WhenToDig98.Helpers
             {          
                 Text = "Calendar",
                 Icon = new FileImageSource
-                {
+                {                  
                     File = _currentPage.GetType().ToString().IndexOf("Calendar") != -1 ? "Calendar.png" : "CalendarLow.png"
                 }                                          
             });

@@ -14,7 +14,7 @@ namespace WhenToDig98.Pages
         private IEnumerable<Plant> _plants;
         private IEnumerable<Variety> _varieties;
         private Plant _currentPlant;
-        private Label _varietyInformation;
+        private Grid _varietyInformation;
 
         public PlantManager(WTDDatabase database)
         {
@@ -76,14 +76,14 @@ namespace WhenToDig98.Pages
             grid.Children.Add(new Button
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = "New Plant",
+                Text = "Edit Plant",
             }, 0, 0);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += EditPlantOnButtonClicked;
 
             grid.Children.Add(new Button
             {
                 VerticalOptions = LayoutOptions.Fill,
-                Text = "Edit Plant",
+                Text = "New Plant",
             }, 1, 0);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += NewPlantOnButtonClicked;
 
@@ -128,12 +128,13 @@ namespace WhenToDig98.Pages
             grid.Children.Add(new Button
             {
                 VerticalOptions = LayoutOptions.Start,
-                Text = "Varieties",
+                Text = "Varieties +",
             }, 0, 0);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += ShowVarietiesOnButtonClicked;
             
             grid.Children.Add(new Label
             {
+                TextColor=Color.Aqua,
                 VerticalOptions = LayoutOptions.Fill,
                 Text = _currentPlant.PlantDisplayName,
             }, 0, 1);
@@ -153,15 +154,24 @@ namespace WhenToDig98.Pages
             _varietyInformation = new Grid
             {
                 VerticalOptions = LayoutOptions.Fill,
-                IsVisible = false;
+                IsVisible = false
             };
-            grid.Children.Add(_varietyInformation), 0, 4);
+
+            grid.Children.Add(_varietyInformation, 0, 4);
         
             return grid;
         }
 
         private void ShowVarietiesOnButtonClicked(object sender, EventArgs e)
         {
+            if(((Button)sender).Text == "Varieties -")
+            {
+                ((Button)sender).Text = "Varieties +";
+            } else
+            {
+                ((Button)sender).Text = "Varieties -";
+            }
+
             _varietyInformation.IsVisible = !_varietyInformation.IsVisible;
             
             if(_varietyInformation.IsVisible)
@@ -172,27 +182,28 @@ namespace WhenToDig98.Pages
                 var counter=0;
                 foreach(var variety in _varieties)
                 {
-                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                    grid.Children.Add(new Label
+                    _varietyInformation.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    _varietyInformation.Children.Add(new Label
                     {
+                        TextColor = Color.Aqua,
                         VerticalOptions = LayoutOptions.Fill,
                         Text = variety.Name
                     }, 0, counter);
                     counter++;
-                    
-                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                    grid.Children.Add(new Label
+
+                    _varietyInformation.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    _varietyInformation.Children.Add(new Label
                     {
                         VerticalOptions = LayoutOptions.Fill,
-                        Text = string.Format("Planting Notes: {1}",variety.PlantingNotes)
+                        Text = string.Format("Planting Notes: {0}",variety.PlantingNotes)
                     }, 0, counter);
                     counter++;
-                    
-                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                    grid.Children.Add(new Label
+
+                    _varietyInformation.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    _varietyInformation.Children.Add(new Label
                     {
                         VerticalOptions = LayoutOptions.Fill,
-                        Text = string.Format("Harvesting Notes: {1}",variety.HarvestingNotes)
+                        Text = string.Format("Harvesting Notes: {0}",variety.HarvestingNotes)
                     }, 0, counter);
                     counter++;
                 }
