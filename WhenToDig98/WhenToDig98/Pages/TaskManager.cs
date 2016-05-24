@@ -10,7 +10,8 @@ namespace WhenToDig98.Pages
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
         private IEnumerable<Task> _tasks;
-
+        private Grid _taskInformation;
+        
         public TaskManager(WTDDatabase database)
         {
             _database = database;
@@ -35,7 +36,22 @@ namespace WhenToDig98.Pages
         {
             _plants = _database.GetPlants();
 
+            ((StackLayout)this.Content).Children.Add(BuildSearchForm());
+            
            // _database.ResetDb();
+        }
+        
+        private Grid BuildSearchForm()
+        {
+           return new TableView {
+                Root = new TableRoot {
+                    new TableSection{
+                    
+                    }
+                },
+                Intent = TableIntent.Settings
+            };
+           
         }
     }
 }
