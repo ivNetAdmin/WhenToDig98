@@ -8,6 +8,8 @@ namespace WhenToDig98.Pages
     public class TaskManager : ContentPage
     {
         private WTDDatabase _database;
+        private IEnumerable<Plant> _plants;
+        private IEnumerable<Task> _tasks;
 
         public TaskManager(WTDDatabase database)
         {
@@ -31,7 +33,9 @@ namespace WhenToDig98.Pages
 
         private void UpdateTasks()
         {
-            _database.ResetDb();
+            _plants = _database.GetPlants();
+
+           // _database.ResetDb();
         }
     }
 }
