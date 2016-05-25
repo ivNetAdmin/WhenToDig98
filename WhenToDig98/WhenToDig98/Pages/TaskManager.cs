@@ -160,5 +160,81 @@ namespace WhenToDig98.Pages
             var tasks = _database.GetTasks(season, month, taskType, plant, task);
             var cakes = tasks;
         }
+        
+        private ListView BuildTaskList()
+        {           
+            var listView =  new ListView
+            {
+                RowHeight=40,
+                ItemsSource = _tasks,
+                ItemTemplate = new DataTemplate(() =>
+                {                   
+                    // var menuItem = new MenuItem
+                    var date = new Label
+                    {
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        VerticalTextAlignment = TextAlignment.Center
+                        // BackgroundColor = Color.Yellow
+                    };
+                    date.SetBinding(Label.TextProperty, "Day");
+
+                    var description = new Label
+                    {
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        VerticalTextAlignment = TextAlignment.Center,
+                        //BackgroundColor = Color.Red
+                    };
+                    description.SetBinding(Label.TextProperty, "Description");
+
+                    var typeImage = new Image
+                    {
+                        //BackgroundColor = Color.Blue
+                    };
+                    typeImage.SetBinding(Image.SourceProperty, "TaskTypeImage");
+
+                    Grid grid = new Grid
+                    {
+                        VerticalOptions = LayoutOptions.Fill
+                    };
+
+                    grid.RowDefinitions.Add(new RowDefinition
+                    {
+                        Height = GridLength.Auto
+                    });
+
+                    var deleteButton = new Button
+                    {
+                        Text = "X",
+                        TextColor = Color.Red
+                    };
+                    deleteButton.SetBinding(Button.ClassIdProperty, "ID");
+
+                    // grid.Children.Add(id,-1,0);
+                    grid.Children.Add(date, 0, 0);
+                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+                     grid.Children.Add(typeImage, 1, 0);
+                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+                    grid.Children.Add(description, 2, 0);
+                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                    grid.Children.Add(deleteButton, 5, 0);
+                    Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 1);
+                    
+                    ((Button)grid.Children[grid.Children.Count - 1]).Clicked += DeleteTaskButtonClicked;
+
+                    var viewCell = new ViewCell
+                    {
+                        View = grid
+                    };
+
+                    viewCell.SetBinding(ViewCell.ClassIdProperty, "ID");
+
+                    viewCell.Tapped += TaskRowTapped;
+
+                    return viewCell;
+                })
+            };
+          
+            return listView;
+        }
     }
 }
