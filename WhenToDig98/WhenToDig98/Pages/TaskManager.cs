@@ -74,7 +74,7 @@ namespace WhenToDig98.Pages
             var plantPicker = new Picker();
             foreach (var plant in _plants)
             {
-                plantPicker.Items.Add(plant.DisplayName);
+                plantPicker.Items.Add(plant.PlantDisplayName);
             }
 
             var grid = new Grid
@@ -82,7 +82,7 @@ namespace WhenToDig98.Pages
                 VerticalOptions = LayoutOptions.Fill
             };
 
-            for (int i = 0;i<3;i++)
+            for (int i = 0;i<4;i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }
@@ -111,6 +111,16 @@ namespace WhenToDig98.Pages
             }, 0, 2);
             
             grid.Children.Add(plantPicker, 1, 2);
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Task"
+            }, 0, 3);
+            
+            grid.Children.Add(new Entry
+            {
+            }, 0, 3);
             
             return grid;
         }
