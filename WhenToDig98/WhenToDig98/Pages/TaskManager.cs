@@ -44,7 +44,7 @@ namespace WhenToDig98.Pages
             _plants = _database.GetPlants();
             _years = _database.GetYears();
             _months = _database.GetMonths();
-            _taskTypes = _database.GetTaskTypes();
+            _taskTypes = new List<string>(_database.GetTaskTypes()); 
 
             ((StackLayout)this.Content).Children.Add(BuildSearchForm());
             
@@ -55,28 +55,36 @@ namespace WhenToDig98.Pages
         {
 
             var yearPicker = new Picker();
+            yearPicker.Items.Add("All Years");
             foreach (var year in _years)
             {
                 yearPicker.Items.Add(year);
             }
+            yearPicker.SelectedIndex = 0;
 
             var monthPicker = new Picker();
+            monthPicker.Items.Add("All Months");
             foreach (var month in _months)
             {
                 monthPicker.Items.Add(month);
             }
+            monthPicker.SelectedIndex = 0;
 
             var taskTypePicker = new Picker();
+            taskTypePicker.Items.Add("All");
             foreach (var taskType in _taskTypes)
             {
                 taskTypePicker.Items.Add(taskType);
             }
-            
+            taskTypePicker.SelectedIndex = 0;
+
             var plantPicker = new Picker();
+            plantPicker.Items.Add("All");
             foreach (var plant in _plants)
             {
                 plantPicker.Items.Add(plant.PlantDisplayName);
             }
+            plantPicker.SelectedIndex = 0;
 
             var grid = new Grid
             {
@@ -141,13 +149,15 @@ namespace WhenToDig98.Pages
             var layout = (StackLayout)this.Content;
             var grid = (Grid)layout.Children[0];
 
-            var season = ((List<string>)_years)[((Picker)grid.Children[1]).SelectedIndex];
-            var month = ((List<string>)_months)[((Picker)grid.Children[2]).SelectedIndex];
-            var taskType = ((List<string>)_taskTypes)[((Picker)grid.Children[4]).SelectedIndex];
-            var plant = ((List<Plant>)_plants)[((Picker)grid.Children[6]).SelectedIndex];
-            var task = ((Entry)grid.Children[8]).text; 
-            
-            var tasks = _database.getTasks(season, month, taskType, plant.ID, task)
+
+            var season = ((Picker)grid.Children[1]).SelectedIndex > 0 ? ((List<string>)_years)[((Picker)grid.Children[1]).SelectedIndex - 1] : null;
+            var month = ((Picker)grid.Children[2]).SelectedIndex;
+            var taskType = ((Picker)grid.Children[4]).SelectedIndex > 0 ? ((List<string>)_taskTypes)[((Picker)grid.Children[4]).SelectedIndex - 1] : null;
+            var plant = ((Picker)grid.Children[6]).SelectedIndex > 0 ? ((List<Plant>)_plants)[((Picker)grid.Children[6]).SelectedIndex - 1].PlantDisplayName : null;
+            var task = ((Entry)grid.Children[8]).Text;
+
+            var tasks = _database.GetTasks(season, month, taskType, plant, task);
+            var cakes = tasks;
         }
     }
 }

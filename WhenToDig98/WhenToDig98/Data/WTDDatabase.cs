@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using WhenToDig98.Helpers;
 using WhenToDig98.Models;
 
@@ -75,8 +76,6 @@ namespace WhenToDig98.Data
         public IEnumerable<string> GetYears()
         {
             var yearList = new List<string>();
-            yearList.Add("All");
-
             var task = _connection.Query<Task>("SELECT * FROM Task ORDER BY Date DESC").FirstOrDefault();
 
             for(var i = task.Date.Year; i<=DateTime.Now.Year;i++)
@@ -88,8 +87,7 @@ namespace WhenToDig98.Data
 
         public IEnumerable<string> GetMonths()
         {
-            var monthList = new List<string>();
-            monthList.Add("All");
+            var monthList = new List<string>();         
             var months = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
         
             for (var i = 0; i <12; i++)
@@ -99,18 +97,23 @@ namespace WhenToDig98.Data
             return monthList;
         }
 
-        public IEnumerable<Task> GetTasks(string season, string month, int taskType, string plant, string task)
+        public IEnumerable<Task> GetTasks(string season, int month, string taskType, string plant, string task)
         {
-            int startMonth = Convert.ToInt32(month);
+           // if (season == "All Years") season = null;
+           // if (taskType == "All") taskType = null;
+           // if (plant == "All") plant = null;
+
+            int startMonth = month;
             int endMonth = startMonth;
             var sql = new StringBuilder("SELECT * FROM Task");
             var criteriaCount = 0;
-          
-            if(!string.IsNullOrEmpty(month)) && (string.IsNullOrEmpty(season)){
+
+            if (month > 0 && string.IsNullOrEmpty(season))
+            {
                 season = Convert.ToString(DateTime.Now.Year);
             }
-            
-            if(!string.IsNullOrEmpty(season)) && (string.IsNullOrEmpty(month)) 
+
+            if (!string.IsNullOrEmpty(season) && month < 1)
             {
                 startMonth = 1;
                 endMonth = 12;
@@ -119,20 +122,24 @@ namespace WhenToDig98.Data
             if(!string.IsNullOrEmpty(season))
             {
                 var startDate = new DateTime(Convert.ToInt32(season), startMonth, 1);
-                var endDate = new DateTime(Convert.ToInt32(season), endMonth, new DateTime(Convert.ToInt32(season),endMonth + 1, 1).AddDays(-1));
+                var endDate = new DateTime(Convert.ToInt32(season), endMonth, new DateTime(Convert.ToInt32(season), endMonth, 1).AddMonths(1).AddDays(-1).Day);
                 sql.Append(GetOperator(criteriaCount));
                 sql.Append(string.Format("Date > {0} AND Date < {1}", startDate.Ticks, endDate.Ticks));
                 criteriaCount++;
             }
-            
-            if(!string.IsNullOrEmpty(taskType))
+
+            if (!string.IsNullOrEmpty(taskType))
             {
+                var taskTypeId = 1;
+                if (taskType == "Sow") taskTypeId = 2;
+                if (taskType == "Harvest") taskTypeId = 4;
+
                 sql.Append(GetOperator(criteriaCount));
-                sql.Append(string.Format("Type = {0}", taskType));
+                sql.Append(string.Format("Type = {0}", taskTypeId));
                 criteriaCount++;
             }
 
-            if(!string.IsNullOrEmpty(taskType))
+            if(!string.IsNullOrEmpty(plant))
             {
                 sql.Append(GetOperator(criteriaCount));
                 sql.Append(string.Format("Plant = '{0}'", plant));
@@ -145,8 +152,9 @@ namespace WhenToDig98.Data
                 sql.Append(string.Format("Description LIKE '%{0}%'", task));
                 criteriaCount++;
             }
-            
-            return _connection.Query<Task>(sql);
+
+            var cakes = sql.ToString();
+            return _connection.Query<Task>(sql.ToString());
         }
 
         #endregion
@@ -236,9 +244,9 @@ namespace WhenToDig98.Data
         {
             if(criteriaCount==0)
             {
-                sql.Append(" WHERE ");
+                return " WHERE ";
             }else{
-                sql.Append(" AND ");
+                return " AND ";
             }
         }
     }
