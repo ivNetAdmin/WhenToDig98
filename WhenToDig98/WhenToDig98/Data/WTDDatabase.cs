@@ -39,7 +39,7 @@ namespace WhenToDig98.Data
         public Task GetTask(int id) {
             return _connection.Table<Task>().FirstOrDefault(t => t.ID == id);
         }
-      
+
         public void DeleteTask(int id) {
             _connection.Delete<Task>(id);
         }
@@ -71,6 +71,34 @@ namespace WhenToDig98.Data
             return tasks;
 
         }
+
+        public IEnumerable<string> GetYears()
+        {
+            var yearList = new List<string>();
+            yearList.Add("All");
+
+            var task = _connection.Query<Task>("SELECT * FROM Task ORDER BY Date DESC").FirstOrDefault();
+
+            for(var i = task.Date.Year; i<=DateTime.Now.Year;i++)
+            {
+                yearList.Add(i.ToString());
+            }
+            return yearList;
+        }
+
+        public IEnumerable<string> GetMonths()
+        {
+            var monthList = new List<string>();
+            monthList.Add("All");
+            var months = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        
+            for (var i = 0; i <12; i++)
+            {
+                monthList.Add(months[i]);
+            }
+            return monthList;
+        }
+
         #endregion
 
         #region taskTypes
