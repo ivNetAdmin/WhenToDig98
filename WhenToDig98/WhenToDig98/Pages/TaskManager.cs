@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using WhenToDig98.Data;
 using WhenToDig98.Helpers;
@@ -82,7 +83,7 @@ namespace WhenToDig98.Pages
                 VerticalOptions = LayoutOptions.Fill
             };
 
-            for (int i = 0;i<4;i++)
+            for (int i = 0; i < 5; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }
@@ -103,7 +104,8 @@ namespace WhenToDig98.Pages
             }, 0, 1);
             
             grid.Children.Add(taskTypePicker, 1, 1);
-            
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
@@ -111,7 +113,8 @@ namespace WhenToDig98.Pages
             }, 0, 2);
             
             grid.Children.Add(plantPicker, 1, 2);
-            
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+
             grid.Children.Add(new Label
             {
                 VerticalOptions = LayoutOptions.Fill,
@@ -120,9 +123,22 @@ namespace WhenToDig98.Pages
             
             grid.Children.Add(new Entry
             {
-            }, 0, 3);
-            
+            }, 1, 3);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+
+            grid.Children.Add(new Button
+            {                
+                Text = "Search"
+            }, 1, 4);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+            ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SearchOnButtonClicked;
+
             return grid;
+        }
+
+        private void SearchOnButtonClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
