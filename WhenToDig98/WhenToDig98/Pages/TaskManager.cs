@@ -12,6 +12,7 @@ namespace WhenToDig98.Pages
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
         private IEnumerable<Task> _tasks;
+        private IEnumerable<string> _taskTypes;
         private IEnumerable<string> _years;
         private IEnumerable<string> _months;
 
@@ -42,6 +43,7 @@ namespace WhenToDig98.Pages
             _plants = _database.GetPlants();
             _years = _database.GetYears();
             _months = _database.GetMonths();
+            _taskTypes = _database.GetTaskTypes();
 
             ((StackLayout)this.Content).Children.Add(BuildSearchForm());
             
@@ -63,13 +65,24 @@ namespace WhenToDig98.Pages
                 monthPicker.Items.Add(month);
             }
 
+            var taskTypePicker = new Picker();
+            foreach (var taskType in _taskTypes)
+            {
+                taskTypePicker.Items.Add(taskType);
+            }
+            
+            var plantPicker = new Picker();
+            foreach (var plant in _plants)
+            {
+                plantPicker.Items.Add(plant.DisplayName);
+            }
 
             var grid = new Grid
             {
                 VerticalOptions = LayoutOptions.Fill
             };
 
-            for (int i = 0;i<2;i++)
+            for (int i = 0;i<3;i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }
@@ -87,7 +100,17 @@ namespace WhenToDig98.Pages
             {
                 VerticalOptions = LayoutOptions.Fill,
                 Text = "Type"
-            }, 0, 0);
+            }, 0, 1);
+            
+            grid.Children.Add(taskTypePicker, 1, 1);
+            
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Plant"
+            }, 0, 2);
+            
+            grid.Children.Add(plantPicker, 1, 2);
             
             return grid;
         }
