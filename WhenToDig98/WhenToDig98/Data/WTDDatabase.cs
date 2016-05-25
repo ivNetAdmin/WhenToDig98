@@ -99,6 +99,56 @@ namespace WhenToDig98.Data
             return monthList;
         }
 
+        public IEnumerable<Task> GetTasks(string season, string month, int taskType, string plant, string task)
+        {
+            int startMonth = Convert.ToInt32(month);
+            int endMonth = startMonth;
+            var sql = new StringBuilder("SELECT * FROM Task");
+            var criteriaCount = 0;
+          
+            if(!string.IsNullOrEmpty(month)) && (string.IsNullOrEmpty(season)){
+                season = Convert.ToString(DateTime.Now.Year);
+            }
+            
+            if(!string.IsNullOrEmpty(season)) && (string.IsNullOrEmpty(month)) 
+            {
+                startMonth = 1;
+                endMonth = 12;
+            }
+          
+            if(!string.IsNullOrEmpty(season))
+            {
+                var startDate = new DateTime(Convert.ToInt32(season), startMonth, 1);
+                var endDate = new DateTime(Convert.ToInt32(season), endMonth, new DateTime(Convert.ToInt32(season),endMonth + 1, 1).AddDays(-1));
+                sql.Append(GetOperator(criteriaCount));
+                sql.Append(string.Format("Date > {0} AND Date < {1}", startDate.Ticks, endDate.Ticks));
+                criteriaCount++;
+            }
+            
+            if(!string.IsNullOrEmpty(taskType))
+            {
+                sql.Append(GetOperator(criteriaCount));
+                sql.Append(string.Format("Type = {0}", taskType));
+                criteriaCount++;
+            }
+
+            if(!string.IsNullOrEmpty(taskType))
+            {
+                sql.Append(GetOperator(criteriaCount));
+                sql.Append(string.Format("Plant = '{0}'", plant));
+                criteriaCount++;
+            }
+            
+            if(!string.IsNullOrEmpty(task))
+            {
+                sql.Append(GetOperator(criteriaCount));
+                sql.Append(string.Format("Description LIKE '%{0}%'", task));
+                criteriaCount++;
+            }
+            
+            return _connection.Query<Task>(sql);
+        }
+
         #endregion
 
         #region taskTypes
@@ -182,5 +232,14 @@ namespace WhenToDig98.Data
         }
         #endregion
 
+        private string GetOperator(int criteriaCount)
+        {
+            if(criteriaCount==0)
+            {
+                sql.Append(" WHERE ");
+            }else{
+                sql.Append(" AND ");
+            }
+        }
     }
 }
