@@ -47,6 +47,7 @@ namespace WhenToDig98.Pages
             _taskTypes = new List<string>(_database.GetTaskTypes()); 
 
             ((StackLayout)this.Content).Children.Add(BuildSearchForm());
+            ((StackLayout)this.Content).Children.Add(BuildTaskList());
             
            // _database.ResetDb();
         }
