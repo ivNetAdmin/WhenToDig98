@@ -69,7 +69,7 @@ namespace WhenToDig98.Pages
                 VerticalOptions = LayoutOptions.Fill
             };
 
-            for (int i = 0;i<1;i++)
+            for (int i = 0;i<2;i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             }
@@ -83,6 +83,12 @@ namespace WhenToDig98.Pages
             grid.Children.Add(yearPicker, 1, 0);
             grid.Children.Add(monthPicker, 2, 0);
 
+            grid.Children.Add(new Label
+            {
+                VerticalOptions = LayoutOptions.Fill,
+                Text = "Type"
+            }, 0, 0);
+            
             return grid;
         }
     }
