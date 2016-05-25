@@ -20,6 +20,13 @@ namespace WhenToDig98.Models
                 return Convert.ToString(Date.Day.ToString("D2"));
             }
         }
+        public string DayMonth
+        {
+            get
+            {
+                return string.Format("{0}/{1}", Convert.ToString(Date.Day.ToString("D2")), Convert.ToString(Date.Month.ToString("D2")));
+            }
+        }
         public string TaskTypeImage
         {
             get

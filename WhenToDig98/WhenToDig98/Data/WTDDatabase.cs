@@ -78,9 +78,15 @@ namespace WhenToDig98.Data
             var yearList = new List<string>();
             var task = _connection.Query<Task>("SELECT * FROM Task ORDER BY Date DESC").FirstOrDefault();
 
-            for(var i = task.Date.Year; i<=DateTime.Now.Year;i++)
+            if (task != null)
             {
-                yearList.Add(i.ToString());
+                for (var i = task.Date.Year; i <= DateTime.Now.Year; i++)
+                {
+                    yearList.Add(i.ToString());
+                }
+            }else
+            {
+                yearList.Add(DateTime.Now.Year.ToString());
             }
             return yearList;
         }
@@ -153,7 +159,6 @@ namespace WhenToDig98.Data
                 criteriaCount++;
             }
 
-            var cakes = sql.ToString();
             return _connection.Query<Task>(sql.ToString());
         }
 

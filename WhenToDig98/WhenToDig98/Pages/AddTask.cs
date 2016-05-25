@@ -210,10 +210,10 @@ namespace WhenToDig98.Pages
 
                     _database.AddTask(taskId, description, notes, taskType, date, plantName);
 
-                    Navigation.PopToRootAsync();
+                    Navigation.PopAsync();
                     break;
                 case "Cancel":
-                    Navigation.PopToRootAsync();
+                    Navigation.PopAsync();
                     break;
             }
         }

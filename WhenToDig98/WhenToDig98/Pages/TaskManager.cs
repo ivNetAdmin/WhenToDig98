@@ -16,8 +16,7 @@ namespace WhenToDig98.Pages
         private IEnumerable<string> _taskTypes;
         private IEnumerable<string> _years;
         private IEnumerable<string> _months;
-
-        private Grid _taskInformation;
+        private bool _loaded;
         
         public TaskManager(WTDDatabase database)
         {
@@ -30,13 +29,16 @@ namespace WhenToDig98.Pages
                 Spacing = 5,
                 Padding = new Thickness(5, 10),
             };
+
+            PageToolBarItems.Build(_database, this);
+            UpdateTasks();
         }
 
         protected override void OnAppearing()
-        {
+        {          
             base.OnAppearing();
-            PageToolBarItems.Build(_database, this);
-            UpdateTasks();
+            if(_loaded) DoSearch();
+            _loaded = true;
         }
 
         private void UpdateTasks()
@@ -44,12 +46,11 @@ namespace WhenToDig98.Pages
             _plants = _database.GetPlants();
             _years = _database.GetYears();
             _months = _database.GetMonths();
-            _taskTypes = new List<string>(_database.GetTaskTypes()); 
+            _taskTypes = new List<string>(_database.GetTaskTypes());
 
+            ((StackLayout)this.Content).Children.Clear();
             ((StackLayout)this.Content).Children.Add(BuildSearchForm());
-            ((StackLayout)this.Content).Children.Add(BuildTaskList());
-            
-           // _database.ResetDb();
+            ((StackLayout)this.Content).Children.Add(new StackLayout());           
         }
         
         private Grid BuildSearchForm()
@@ -138,8 +139,8 @@ namespace WhenToDig98.Pages
             grid.Children.Add(new Button
             {                
                 Text = "Search"
-            }, 1, 4);
-            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 2);
+            }, 0, 4);
+            Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
             ((Button)grid.Children[grid.Children.Count - 1]).Clicked += SearchOnButtonClicked;
 
             return grid;
@@ -147,22 +148,11 @@ namespace WhenToDig98.Pages
 
         private void SearchOnButtonClicked(object sender, EventArgs e)
         {
-            var layout = (StackLayout)this.Content;
-            var grid = (Grid)layout.Children[0];
-
-
-            var season = ((Picker)grid.Children[1]).SelectedIndex > 0 ? ((List<string>)_years)[((Picker)grid.Children[1]).SelectedIndex - 1] : null;
-            var month = ((Picker)grid.Children[2]).SelectedIndex;
-            var taskType = ((Picker)grid.Children[4]).SelectedIndex > 0 ? ((List<string>)_taskTypes)[((Picker)grid.Children[4]).SelectedIndex - 1] : null;
-            var plant = ((Picker)grid.Children[6]).SelectedIndex > 0 ? ((List<Plant>)_plants)[((Picker)grid.Children[6]).SelectedIndex - 1].PlantDisplayName : null;
-            var task = ((Entry)grid.Children[8]).Text;
-
-            var tasks = _database.GetTasks(season, month, taskType, plant, task);
-            var cakes = tasks;
+            DoSearch();           
         }
         
         private ListView BuildTaskList()
-        {           
+        {
             var listView =  new ListView
             {
                 RowHeight=40,
@@ -176,7 +166,7 @@ namespace WhenToDig98.Pages
                         VerticalTextAlignment = TextAlignment.Center
                         // BackgroundColor = Color.Yellow
                     };
-                    date.SetBinding(Label.TextProperty, "Day");
+                    date.SetBinding(Label.TextProperty, "DayMonth");
 
                     var description = new Label
                     {
@@ -235,6 +225,39 @@ namespace WhenToDig98.Pages
             };
           
             return listView;
+        }
+
+        async void DeleteTaskButtonClicked(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Delete Task", "Are you sure you want to delete this task?", "Yes", "No"))
+            {
+                var id = Convert.ToInt32(((Button)sender).ClassId);
+                _database.DeleteTask(id);
+                DoSearch();
+            }
+        }
+
+        private void TaskRowTapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AddTask(_database, Convert.ToInt32(((ViewCell)sender).ClassId)));
+        }
+
+        private void DoSearch()
+        {
+            var layout = (StackLayout)this.Content;
+            var grid = (Grid)layout.Children[0];
+
+            var season = ((Picker)grid.Children[1]).SelectedIndex > 0 ? ((List<string>)_years)[((Picker)grid.Children[1]).SelectedIndex - 1] : null;
+            var month = ((Picker)grid.Children[2]).SelectedIndex;
+            var taskType = ((Picker)grid.Children[4]).SelectedIndex > 0 ? ((List<string>)_taskTypes)[((Picker)grid.Children[4]).SelectedIndex - 1] : null;
+            var plant = ((Picker)grid.Children[6]).SelectedIndex > 0 ? ((List<Plant>)_plants)[((Picker)grid.Children[6]).SelectedIndex - 1].PlantDisplayName : null;
+            var task = ((Entry)grid.Children[8]).Text;
+
+            _tasks = _database.GetTasks(season, month, taskType, plant, task);
+
+            var stackLayout = (StackLayout)((StackLayout)this.Content).Children[1];
+            stackLayout.Children.Clear();
+            stackLayout.Children.Add(BuildTaskList());
         }
     }
 }

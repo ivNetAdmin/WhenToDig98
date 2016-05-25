@@ -26,6 +26,8 @@ namespace WhenToDig98.Pages
         {
             base.OnAppearing();
             PageToolBarItems.Build(_database, this);
+
+             _database.ResetDb();
         }
 
     }
