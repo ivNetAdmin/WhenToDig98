@@ -138,7 +138,16 @@ namespace WhenToDig98.Pages
 
         private void SearchOnButtonClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var layout = (StackLayout)this.Content;
+            var grid = (Grid)layout.Children[0];
+
+            var season = ((List<string>)_years)[((Picker)grid.Children[1]).SelectedIndex];
+            var month = ((List<string>)_months)[((Picker)grid.Children[2]).SelectedIndex];
+            var taskType = ((List<string>)_taskTypes)[((Picker)grid.Children[4]).SelectedIndex];
+            var plant = ((List<Plant>)_plants)[((Picker)grid.Children[6]).SelectedIndex];
+            var task = ((Entry)grid.Children[8]).text; 
+            
+            var tasks = _database.getTasks(season, month, taskType, plant.ID, task)
         }
     }
 }
