@@ -8,6 +8,6 @@ public class SplashScreen : Activity
 
         var intent = new Intent(this, typeof(MainActivity));
         StartActivity(intent);
-        Finish();
+        //Finish();
     }
 }
