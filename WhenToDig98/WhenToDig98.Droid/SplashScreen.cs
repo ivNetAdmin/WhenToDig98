@@ -1,4 +1,10 @@
-[Activity(Label = "MyApp", MainLauncher = true, NoHistory = true, Theme = "@style/Theme.Splash", 
+using Android.App;
+using Android.Content;
+using Android.Content.PM;
+using Android.OS;
+using WhenToDig98.Droid;
+
+[Activity(Label = "WhenToDig98", MainLauncher = true, NoHistory = true, Theme = "@style/Theme.Splash", 
     ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 public class SplashScreen : Activity
 {
@@ -8,6 +14,6 @@ public class SplashScreen : Activity
 
         var intent = new Intent(this, typeof(MainActivity));
         StartActivity(intent);
-        //Finish();
+        Finish();
     }
 }

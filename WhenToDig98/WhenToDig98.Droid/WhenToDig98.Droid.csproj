@@ -104,6 +104,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\SQLite_Android.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -119,148 +120,78 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\a.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\b.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\barrow.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\c.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Calendar.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\cultivate.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\d.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\e.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\f.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\g.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\harvest.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Plant.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Review.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\sow.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Task.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\x.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\a.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\b.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\barrow.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\c.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Calendar.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\cultivate.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\d.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\e.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\f.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\g.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\harvest.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Plant.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Review.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\sow.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Task.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\x.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\a.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\b.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\c.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Calendar.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\cultivate.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\d.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\e.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\f.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\g.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\harvest.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Plant.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Review.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\sow.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Task.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\x.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\a.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\b.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\c.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Calendar.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\cultivate.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\d.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\e.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\f.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\g.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\harvest.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Plant.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Review.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\sow.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Task.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\x.png" />
-    <AndroidResource Include="Resources\drawable\a.png" />
-    <AndroidResource Include="Resources\drawable\b.png" />
-    <AndroidResource Include="Resources\drawable\barrow.png" />
-    <AndroidResource Include="Resources\drawable\c.png" />
-    <AndroidResource Include="Resources\drawable\Calendar.png" />
-    <AndroidResource Include="Resources\drawable\cultivate.png" />
-    <AndroidResource Include="Resources\drawable\d.png" />
-    <AndroidResource Include="Resources\drawable\e.png" />
-    <AndroidResource Include="Resources\drawable\f.png" />
-    <AndroidResource Include="Resources\drawable\g.png" />
-    <AndroidResource Include="Resources\drawable\harvest.png" />
     <AndroidResource Include="Resources\drawable\icon.png" />
-    <AndroidResource Include="Resources\drawable\Plant.png" />
-    <AndroidResource Include="Resources\drawable\Review.png" />
+    <AndroidResource Include="Resources\Values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-mdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SplashScreen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\calendar_low.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\plant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\plant_low.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\review.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\review_low.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\task.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\cultivate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\harvest.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\sow.png" />
-    <AndroidResource Include="Resources\drawable\Task.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\task_low.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\a.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\c.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\e.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\f.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\g.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\CalendarLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\PlantLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ReviewLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\TaskLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\CalendarLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\PlantLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\ReviewLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\TaskLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\CalendarLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\PlantLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\ReviewLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\TaskLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\CalendarLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\PlantLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\ReviewLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\TaskLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\CalendarLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\PlantLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ReviewLow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\TaskLow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

@@ -6,18 +6,20 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms.Platform.Android;
 
 namespace WhenToDig98.Droid
 {
-    [Activity(Label = "WhenToDig98", Theme="@android:style/Theme.Holo", 
+    [Activity(Label = "WhenToDig98", Icon = "@drawable/icon",
 ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-public class MainActivity : AndroidActivity
-{
-    protected override void OnCreate(Bundle bundle)
+    public class MainActivity : FormsApplicationActivity
     {
-        base.OnCreate(bundle);
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
 
-        Xamarin.Forms.Forms.Init(this, bundle);
-        SetPage(App.GetMainPage());
+            Xamarin.Forms.Forms.Init(this, bundle);
+            LoadApplication(new App());
+        }
     }
 }

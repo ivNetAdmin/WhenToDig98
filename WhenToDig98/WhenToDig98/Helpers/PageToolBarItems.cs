@@ -24,7 +24,7 @@ namespace WhenToDig98.Helpers
                 Text = "Calendar",
                 Icon = new FileImageSource
                 {                  
-                    File = _currentPage.GetType().ToString().IndexOf("Calendar") != -1 ? "Calendar.png" : "CalendarLow.png"
+                    File = _currentPage.GetType().ToString().IndexOf("Calendar") != -1 ? "calendar.png" : "calendar_low.png"
                 }                                          
             });
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
@@ -33,7 +33,7 @@ namespace WhenToDig98.Helpers
                 Text = "TaskManager",
                 Icon = new FileImageSource
                 {
-                    File = _currentPage.GetType().ToString().IndexOf("TaskManager") != -1 ? "Task.png" : "TaskLow.png"
+                    File = _currentPage.GetType().ToString().IndexOf("TaskManager") != -1 ? "task.png" : "task_low.png"
                 }
             });
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
@@ -42,7 +42,7 @@ namespace WhenToDig98.Helpers
                 Text = "Review",
                 Icon = new FileImageSource
                 {
-                    File = _currentPage.GetType().ToString().IndexOf("Review") != -1 ? "Review.png" : "ReviewLow.png"
+                    File = _currentPage.GetType().ToString().IndexOf("Review") != -1 ? "review.png" : "review_low.png"
                 }
             });
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
@@ -51,7 +51,7 @@ namespace WhenToDig98.Helpers
                 Text = "PlantManager",
                 Icon = new FileImageSource
                 {
-                    File = _currentPage.GetType().ToString().IndexOf("PlantManager") != -1 ? "Plant.png" : "PlantLow.png"
+                    File = _currentPage.GetType().ToString().IndexOf("PlantManager") != -1 ? "plant.png" : "plant_low.png"
                 }
             });
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
