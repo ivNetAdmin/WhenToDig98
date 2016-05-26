@@ -38,8 +38,9 @@
     <Compile Include="Helpers\Enums\PageNav.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\PageToolBarItems.cs" />
-    <Compile Include="Models\Plant.cs" />
-    <Compile Include="Models\Variety.cs" />
+    <Compile Include="Entities\Plant.cs" />
+    <Compile Include="Entities\Variety.cs" />
+    <Compile Include="Models\PlantNote.cs" />
     <Compile Include="Pages\AddPlant.cs" />
     <Compile Include="Pages\AddTask.cs" />
     <Compile Include="App.cs" />
@@ -47,7 +48,7 @@
     <Compile Include="Pages\Calendar.cs" />
     <Compile Include="Data\WTDDatabase.cs" />
     <Compile Include="Data\ISQLite.cs" />
-    <Compile Include="Models\Task.cs" />
+    <Compile Include="Entities\Task.cs" />
     <Compile Include="Pages\PlantManager.cs" />
     <Compile Include="Pages\Review.cs" />
     <Compile Include="Pages\TaskManager.cs" />

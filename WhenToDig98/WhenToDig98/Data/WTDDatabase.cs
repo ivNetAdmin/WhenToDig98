@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using WhenToDig98.Helpers;
+using WhenToDig98.Entities;
 using WhenToDig98.Models;
 
 namespace WhenToDig98.Data
@@ -160,7 +161,7 @@ namespace WhenToDig98.Data
             }
 
             return _connection.Query<Task>(sql.ToString());
-        }
+        }      
 
         #endregion
 
@@ -203,6 +204,55 @@ namespace WhenToDig98.Data
 
             return newPlant.ID;
         }
+
+        internal IEnumerable<string> GetNotes(string type, int plantId)
+        {
+            var notes = new List<string>();
+
+            var plantName = string.Empty;
+            if (plantId > 0 && type != "variety")
+            {
+                plantName = _connection.Table<Plant>().FirstOrDefault(t => t.ID == plantId).PlantDisplayName;
+            }
+
+            switch (type)
+            {
+                case "variety":
+
+                    var sql = "SELECT p.Name AS PlantName, " +
+                        "v.PlantingNotes AS Planting, " +
+                        "v.HarvestingNotes AS Harvesting " +
+                        "FROM Plant p " +
+                        "INNER JOIN Variety v " +
+                        "ON p.ID = v.PlantID";
+
+                    if (plantId > 0)
+                        sql = string.Format("{0} WHERE p.ID={1}", sql, plantId);
+
+                    var plantNotes = _connection.Query<PlantNote>(sql.ToString());
+
+                    foreach (var plantNote in plantNotes)
+                    {
+                        if (!string.IsNullOrEmpty(plantNote.Planting))
+                            notes.Add(string.Format("{0} - Planting: {1}", plantNote.PlantName, plantNote.Planting));
+                        if (!string.IsNullOrEmpty(plantNote.Harvesting))
+                            notes.Add(string.Format("{0} - Harvesting: {1}", plantNote.PlantName, plantNote.Harvesting));
+                    }
+                    break;
+                default:
+                    var taskTypeId = 1;
+                    if (type == "sow") taskTypeId = 2;
+                    if (type == "harvest") taskTypeId = 4;
+
+                    var tasks = plantId == 0
+                       ? _connection.Table<Task>().Where(t => t.Type == taskTypeId).ToList()
+                       : _connection.Table<Task>().Where(t => t.Plant == plantName).ToList();
+                    break;
+            }
+
+            return null;
+        }
+
         #endregion
 
         #region variety
@@ -211,15 +261,14 @@ namespace WhenToDig98.Data
             return _connection.Table<Variety>().FirstOrDefault(t => t.ID == id);
         }
         
-        public IEnumerable<Variety> GetVarieties(int id)
-        {
-            return (from t in _connection.Table<Variety>() select t).ToList();
-        }
+        //public IEnumerable<Variety> GetVarieties(int id)
+        //{
+        //    return (from t in _connection.Table<Variety>() select t).ToList();
+        //}
 
         public ObservableCollection<Variety> GetPlantVarieties(int plantId)
         {
-            var varieties = (from p in _connection.Table<Variety>() select p).ToList();
-            return new List<Variety>().ToObservableCollection();
+            return _connection.Table<Variety>().Where(t => t.PlantID == plantId).ToObservableCollection();
         }
 
         public void AddVariety(int id, string name, string plantingNotes, string harvestingNotes, int plantId)

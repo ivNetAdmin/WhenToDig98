@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using WhenToDig98.Data;
-using WhenToDig98.Models;
+using WhenToDig98.Entities;
 using Xamarin.Forms;
 
 namespace WhenToDig98.Pages

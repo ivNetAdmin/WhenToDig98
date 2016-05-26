@@ -2,7 +2,7 @@
 using SQLite;
 using System;
 
-namespace WhenToDig98.Models
+namespace WhenToDig98.Entities
 {
     public class Task
     {

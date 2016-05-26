@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using WhenToDig98.Data;
 using WhenToDig98.Helpers;
-using WhenToDig98.Models;
+using WhenToDig98.Entities;
 using Xamarin.Forms;
 
 namespace WhenToDig98.Pages
@@ -177,7 +177,7 @@ namespace WhenToDig98.Pages
             if(_varietyInformation.IsVisible)
             {
                 _varietyInformation.Children.Clear();
-                _varieties = _database.GetVarieties(_currentPlant.ID);
+                _varieties = _database.GetPlantVarieties(_currentPlant.ID);
                 
                 var counter=0;
                 foreach(var variety in _varieties)

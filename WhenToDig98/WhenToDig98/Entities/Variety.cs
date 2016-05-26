@@ -1,7 +1,7 @@
 ﻿
 using SQLite;
 
-namespace WhenToDig98.Models
+namespace WhenToDig98.Entities
 {
     public class Variety
     {
