@@ -9,16 +9,15 @@ using Android.OS;
 
 namespace WhenToDig98.Droid
 {
-    [Activity(Label = "WhenToDig98", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
+    [Activity(Label = "WhenToDig98", Theme="@android:style/Theme.Holo", 
+ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+public class MainActivity : AndroidActivity
+{
+    protected override void OnCreate(Bundle bundle)
     {
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
+        base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App());
-        }
+        Xamarin.Forms.Forms.Init(this, bundle);
+        SetPage(App.GetMainPage());
     }
 }
-
