@@ -42,7 +42,6 @@ namespace WhenToDig98.Pages
         {
             _plants = _database.GetPlants();
           
-
             ((StackLayout)this.Content).Children.Clear();
             ((StackLayout)this.Content).Children.Add(BuildSearchForm());
             ((StackLayout)this.Content).Children.Add(_noteGrid);
@@ -138,7 +137,7 @@ namespace WhenToDig98.Pages
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Center
                 }, 0, rowCounter);
-
+                Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
                 rowCounter++;
 
             }
