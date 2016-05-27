@@ -14,27 +14,36 @@ namespace WhenToDig98.Pages
         private DateTime _currentCallendarDate;
         private WTDDatabase _database;
         private IEnumerable<Task> _tasks;
+        private StackLayout _topStack;
+        private StackLayout _bottomStack;
 
         public Calendar(WTDDatabase database)
         {
             _database = database;
             _taskImages = new[] { "x.png", "a.png", "b.png", "c.png", "d.png", "e.png", "f.png", "g.png" };
             _weekDays = new[] { "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
-            _currentCallendarDate = DateTime.Now;           
+            _currentCallendarDate = DateTime.Now;
 
-            Padding = new Thickness(10);            
+            // Padding = new Thickness(10);            
 
-            this.Content = new StackLayout
-            {
-                Spacing = 5,
-                Padding = new Thickness(5, 10)
-            };
+            this.Content = new WTDLayout();
+
+            _topStack = ((WTDLayout)this.Content).TopStack;
+            _bottomStack = ((WTDLayout)this.Content).BottomStack;
+
+            PageToolBarItems.Build(_database, this);
+            PageToolBarItems.Build(_bottomStack);
+          
+        }
+
+        public Calendar() : base()
+        {
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            PageToolBarItems.Build(_database, this);
+            
             UpdateCalendar();
         }
 
@@ -43,12 +52,12 @@ namespace WhenToDig98.Pages
             // get tasks
             _tasks = _database.GetTasksByMonth(_currentCallendarDate);
 
-            ((StackLayout)this.Content).Children.Clear();
-            ((StackLayout)this.Content).Children.Add(BuildCalendarNavigationBar());
-            ((StackLayout)this.Content).Children.Add(BuildCalendarHeaderBar());
-            ((StackLayout)this.Content).Children.Add(BuildCalendar());
-            ((StackLayout)this.Content).Children.Add(BuildCalendarTaskBar());
-            ((StackLayout)this.Content).Children.Add(BuildTaskList());
+            _topStack.Children.Clear();
+            _topStack.Children.Add(BuildCalendarNavigationBar());
+            _topStack.Children.Add(BuildCalendarHeaderBar());
+            _topStack.Children.Add(BuildCalendar());
+            _topStack.Children.Add(BuildCalendarTaskBar());
+            _topStack.Children.Add(BuildTaskList());
         }
 
         private Grid BuildCalendarNavigationBar()

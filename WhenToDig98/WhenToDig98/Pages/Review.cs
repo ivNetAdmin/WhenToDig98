@@ -15,19 +15,21 @@ namespace WhenToDig98.Pages
         private IEnumerable<Plant> _plants;
         private IEnumerable<string> _notes;
         private Grid _noteGrid;
+        private StackLayout _topStack;
+        private StackLayout _bottomStack;
 
         public Review(WTDDatabase database)
         {
             _database = database;
             _noteGrid = new Grid();
 
-            Padding = new Thickness(10);
+            this.Content = new WTDLayout();
 
-            this.Content = new StackLayout
-            {
-                Spacing = 5,
-                Padding = new Thickness(5, 10),
-            };
+            _topStack = ((WTDLayout)this.Content).TopStack;
+            _bottomStack = ((WTDLayout)this.Content).BottomStack;
+
+            PageToolBarItems.Build(_database, this);
+            PageToolBarItems.Build(_bottomStack);
         }
 
         protected override void OnAppearing()
@@ -42,9 +44,9 @@ namespace WhenToDig98.Pages
         {
             _plants = _database.GetPlants();
           
-            ((StackLayout)this.Content).Children.Clear();
-            ((StackLayout)this.Content).Children.Add(BuildSearchForm());
-            ((StackLayout)this.Content).Children.Add(_noteGrid);
+            _topStack.Children.Clear();
+            _topStack.Children.Add(BuildSearchForm());
+            _topStack.Children.Add(_noteGrid);
         }
 
         private Grid BuildSearchForm()
@@ -101,7 +103,7 @@ namespace WhenToDig98.Pages
         private void SearchNotesOnButtonClicked(object sender, EventArgs e)
         {
 
-            var layout = (StackLayout)this.Content;
+            var layout = _topStack;
             var grid = (Grid)layout.Children[0];
 
             var plant = ((Picker)grid.Children[0]).SelectedIndex > 0 ? ((List<Plant>)_plants)[((Picker)grid.Children[0]).SelectedIndex - 1] : null;

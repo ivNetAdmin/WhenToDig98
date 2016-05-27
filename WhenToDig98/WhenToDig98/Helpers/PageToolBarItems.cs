@@ -57,6 +57,34 @@ namespace WhenToDig98.Helpers
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
         }
 
+        public static void Build(StackLayout layout)
+        {
+            var grid = new Grid
+            {
+                VerticalOptions = LayoutOptions.StartAndExpand
+            };
+
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            grid.Children.Add(new Label
+            {
+                Text = "Frost",
+                TextColor = Color.Silver,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center
+            }, 0, 0);
+
+            grid.Children.Add(new Label
+            {
+                Text = "Location",
+                TextColor = Color.Silver,
+                HorizontalTextAlignment = TextAlignment.End,
+                VerticalTextAlignment = TextAlignment.Center
+            }, 1, 0);
+
+            layout.Children.Add(grid);
+        }
+
         private static void MenuItemActivated(object sender, EventArgs e)
         {
             switch(((ToolbarItem)sender).Text)

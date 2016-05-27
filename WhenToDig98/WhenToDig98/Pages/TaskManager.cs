@@ -16,6 +16,8 @@ namespace WhenToDig98.Pages
         private IEnumerable<string> _taskTypes;
         private IEnumerable<string> _years;
         private IEnumerable<string> _months;
+        private StackLayout _topStack;
+        private StackLayout _bottomStack;
         private bool _loaded;
         
         public TaskManager(WTDDatabase database)
@@ -24,13 +26,14 @@ namespace WhenToDig98.Pages
 
             Padding = new Thickness(10);
 
-            this.Content = new StackLayout
-            {
-                Spacing = 5,
-                Padding = new Thickness(5, 10),
-            };
+            this.Content = new WTDLayout();
+
+            _topStack = ((WTDLayout)this.Content).TopStack;
+            _bottomStack = ((WTDLayout)this.Content).BottomStack;
 
             PageToolBarItems.Build(_database, this);
+            PageToolBarItems.Build(_bottomStack);
+
             UpdateTasks();
         }
 
@@ -48,9 +51,9 @@ namespace WhenToDig98.Pages
             _months = _database.GetMonths();
             _taskTypes = new List<string>(_database.GetTaskTypes());
 
-            ((StackLayout)this.Content).Children.Clear();
-            ((StackLayout)this.Content).Children.Add(BuildSearchForm());
-            ((StackLayout)this.Content).Children.Add(new StackLayout());           
+            _topStack.Children.Clear();
+            _topStack.Children.Add(BuildSearchForm());
+            _topStack.Children.Add(new StackLayout());           
         }
         
         private Grid BuildSearchForm()
@@ -244,7 +247,7 @@ namespace WhenToDig98.Pages
 
         private void DoSearch()
         {
-            var layout = (StackLayout)this.Content;
+            var layout = _topStack;
             var grid = (Grid)layout.Children[0];
 
             var season = ((Picker)grid.Children[1]).SelectedIndex > 0 ? ((List<string>)_years)[((Picker)grid.Children[1]).SelectedIndex - 1] : null;
@@ -255,7 +258,7 @@ namespace WhenToDig98.Pages
 
             _tasks = _database.GetTasks(season, month, taskType, plant, task);
 
-            var stackLayout = (StackLayout)((StackLayout)this.Content).Children[1];
+            var stackLayout = (StackLayout)_topStack.Children[1];
             stackLayout.Children.Clear();
             stackLayout.Children.Add(BuildTaskList());
         }

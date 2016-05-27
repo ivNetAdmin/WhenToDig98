@@ -15,26 +15,25 @@ namespace WhenToDig98.Pages
         private IEnumerable<Variety> _varieties;
         private Plant _currentPlant;
         private Grid _varietyInformation;
+        private StackLayout _topStack;
+        private StackLayout _bottomStack;
 
         public PlantManager(WTDDatabase database)
         {
             _database = database;
 
-            Padding = new Thickness(10);
+            this.Content = new WTDLayout();
 
-           // var grid = BuildForm();
+            _topStack = ((WTDLayout)this.Content).TopStack;
+            _bottomStack = ((WTDLayout)this.Content).BottomStack;
 
-            this.Content = new StackLayout
-            {
-                Spacing = 5,
-                Padding = new Thickness(5, 10)
-            };
+            PageToolBarItems.Build(_database, this);
+            PageToolBarItems.Build(_bottomStack);
         }
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-            PageToolBarItems.Build(_database, this);  
+            base.OnAppearing(); 
             UpdatePlants();
         }
         
@@ -57,12 +56,12 @@ namespace WhenToDig98.Pages
             for(int i = 0; i < 5; i++)
             {
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            }  
-            
-            ((StackLayout)this.Content).Children.Clear();
-            ((StackLayout)this.Content).Children.Add(DisplayPlantInformation(grid));
-            ((StackLayout)this.Content).Children.Add(BuildPlantTaskBar());
-            ((StackLayout)this.Content).Children.Add(BuildPlantList());
+            }
+
+            _topStack.Children.Clear();
+            _topStack.Children.Add(DisplayPlantInformation(grid));
+            _topStack.Children.Add(BuildPlantTaskBar());
+            _topStack.Children.Add(BuildPlantList());
          }
          
          private Grid BuildPlantTaskBar()
@@ -230,7 +229,7 @@ namespace WhenToDig98.Pages
                if(plant.ID == id) 
                {
                   _currentPlant = plant;
-                  var grid = (Grid)((StackLayout)this.Content).Children[0];
+                  var grid = (Grid)_topStack.Children[0];
                   DisplayPlantInformation(grid);
                   break;
                }
