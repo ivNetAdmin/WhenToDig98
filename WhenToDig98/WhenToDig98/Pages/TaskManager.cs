@@ -32,7 +32,7 @@ namespace WhenToDig98.Pages
             _bottomStack = ((WTDLayout)this.Content).BottomStack;
 
             PageToolBarItems.Build(_database, this);
-            PageToolBarItems.Build(_bottomStack);
+            PageToolBarItems.Build(_database, _bottomStack, Navigation);
 
             UpdateTasks();
         }

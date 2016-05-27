@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading.Tasks;
 using WhenToDig98.Data;
 using WhenToDig98.Pages;
 using Xamarin.Forms;
@@ -57,8 +58,10 @@ namespace WhenToDig98.Helpers
             _currentPage.ToolbarItems[_currentPage.ToolbarItems.Count - 1].Clicked += MenuItemActivated;
         }
 
-        public static void Build(StackLayout layout)
+        public static void Build(WTDDatabase database, StackLayout layout, INavigation nav)
         {
+            _database = database;
+
             var grid = new Grid
             {
                 VerticalOptions = LayoutOptions.StartAndExpand
@@ -66,23 +69,46 @@ namespace WhenToDig98.Helpers
 
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            grid.Children.Add(new Label
+            grid.Children.Add(new Image
             {
-                Text = "Frost",
-                TextColor = Color.Silver,
-                HorizontalTextAlignment = TextAlignment.Start,
-                VerticalTextAlignment = TextAlignment.Center
+                Source = "frost.png",
+                HorizontalOptions = LayoutOptions.Start
             }, 0, 0);
-
-            grid.Children.Add(new Label
+            ((Image)grid.Children[grid.Children.Count - 1]).GestureRecognizers.Add(new TapGestureRecognizer
             {
-                Text = "Location",
-                TextColor = Color.Silver,
-                HorizontalTextAlignment = TextAlignment.End,
-                VerticalTextAlignment = TextAlignment.Center
+                Command = new Command(() => OnFooterButtonClicked(nav, "frost"))
+            });
+
+            grid.Children.Add(new Image
+            {
+                Source = "location.png",
+                HorizontalOptions = LayoutOptions.End
             }, 1, 0);
+            ((Image)grid.Children[grid.Children.Count - 1]).GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(() => OnFooterButtonClicked(nav, "location"))
+            });
 
             layout.Children.Add(grid);
+        }
+
+        private static void OnFooterButtonClicked(INavigation nav, string item)
+        {
+            switch (item)
+            {
+                case "frost":
+                    nav.PushAsync(new AddFrost(_database));
+                    break;
+                case "location":
+                   
+                    break;
+
+            }
+        }
+
+        private static Task<bool> DisplayAlert(string v1, string v2, string v3, string v4)
+        {
+            throw new NotImplementedException();
         }
 
         private static void MenuItemActivated(object sender, EventArgs e)

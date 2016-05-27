@@ -21,6 +21,7 @@ namespace WhenToDig98.Data
             _connection.CreateTable<Task>();
             _connection.CreateTable<Plant>();
             _connection.CreateTable<Variety>();
+            _connection.CreateTable<Frost>();
         }
 
 
@@ -29,8 +30,19 @@ namespace WhenToDig98.Data
             _connection.DeleteAll<Variety>();
             _connection.DeleteAll<Plant>();
             _connection.DeleteAll<Task>();
+            _connection.DeleteAll<Frost>();
         }
 
+        #region frost
+        internal void AddFrost(DateTime date)
+        {
+            var newFrost = new Frost
+            {
+                Date = date
+            };
+            _connection.Insert(newFrost);
+        }
+        #endregion
 
         #region tasks
         public IEnumerable<Task> GetTasks()

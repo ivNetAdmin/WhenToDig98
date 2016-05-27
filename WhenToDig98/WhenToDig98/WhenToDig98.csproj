@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Frost.cs" />
     <Compile Include="Helpers\Enums\PageNav.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\PageToolBarItems.cs" />
@@ -42,6 +43,7 @@
     <Compile Include="Entities\Variety.cs" />
     <Compile Include="Helpers\WTDLayout.cs" />
     <Compile Include="Models\ReviewNote.cs" />
+    <Compile Include="Pages\AddFrost.cs" />
     <Compile Include="Pages\AddPlant.cs" />
     <Compile Include="Pages\AddTask.cs" />
     <Compile Include="App.cs" />
