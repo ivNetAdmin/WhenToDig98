@@ -237,9 +237,9 @@ namespace WhenToDig98.Data
                     foreach (var plantNote in plantNotes)
                     {
                         if (!string.IsNullOrEmpty(plantNote.Planting))
-                            notes.Add(string.Format("{0} - Planting: {1}", plantNote.PlantName, plantNote.Planting));
+                            notes.Add(string.Format("{0}-Planting: {1}", plantNote.PlantName, plantNote.Planting));
                         if (!string.IsNullOrEmpty(plantNote.Harvesting))
-                            notes.Add(string.Format("{0} - Harvesting: {1}", plantNote.PlantName, plantNote.Harvesting));
+                            notes.Add(string.Format("{0}-Harvesting: {1}", plantNote.PlantName, plantNote.Harvesting));
                     }
                     break;
                 default:
