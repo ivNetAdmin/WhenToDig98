@@ -128,16 +128,16 @@ namespace WhenToDig98.Pages
             var rowCounter = 0;
             foreach(var note in _notes)
             {
-                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                grid.Children.Add(new Label
+                _noteGrid.Children.Add(new Label
                 {
                     Text = note,
                     TextColor = Color.Silver,
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Center
                 }, 0, rowCounter);
-                Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
                 rowCounter++;
 
             }
