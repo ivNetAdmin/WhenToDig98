@@ -208,6 +208,7 @@ namespace WhenToDig98.Data
         internal IEnumerable<string> GetNotes(string type, int plantId)
         {
             var notes = new List<string>();
+            var sql = string.Empty;
 
             var plantName = string.Empty;
             if (plantId > 0 && type != "variety")
@@ -219,11 +220,11 @@ namespace WhenToDig98.Data
             {
                 case "variety":
 
-                    var sql = "SELECT p.Name AS PlantName, " +
+                        sql = "SELECT p.Name AS PlantName, " +
                         "p.Type AS PlantType, " +
                         "v.Name as Variety, " +
-                        "v.PlantingNotes AS Planting, " +
-                        "v.HarvestingNotes AS Harvesting " +
+                        "v.PlantingNotes AS NoteA, " +
+                        "v.HarvestingNotes AS NoteB " +
                         "FROM Plant p " +
                         "INNER JOIN Variety v " +
                         "ON p.ID = v.PlantID " +
@@ -232,14 +233,14 @@ namespace WhenToDig98.Data
                     if (plantId > 0)
                         sql = string.Format("{0} WHERE p.ID={1}", sql, plantId);
 
-                    var plantNotes = _connection.Query<PlantNote>(sql.ToString());
+                    var plantNotes = _connection.Query<ReviewNote>(sql.ToString());
 
                     foreach (var plantNote in plantNotes)
                     {
-                        if (!string.IsNullOrEmpty(plantNote.Planting))
-                            notes.Add(string.Format("{0}-Planting: {1}", plantNote.PlantName, plantNote.Planting));
-                        if (!string.IsNullOrEmpty(plantNote.Harvesting))
-                            notes.Add(string.Format("{0}-Harvesting: {1}", plantNote.PlantName, plantNote.Harvesting));
+                        if (!string.IsNullOrEmpty(plantNote.NoteA))
+                            notes.Add(string.Format("{0}-Planting: {1}", plantNote.PlantName, plantNote.NoteA));
+                        if (!string.IsNullOrEmpty(plantNote.NoteB))
+                            notes.Add(string.Format("{0}-Harvesting: {1}", plantNote.PlantName, plantNote.NoteB));
                     }
                     break;
                 default:
@@ -247,21 +248,21 @@ namespace WhenToDig98.Data
                     if (type == "sow") taskTypeId = 2;
                     if (type == "harvest") taskTypeId = 4;
 
-                    var sql = string.Format("SELECT Plant As PlantName, Description AS Planting, Notes AS Harvesting " +
-                    "FROM Task "
-                    "WHERE Type = {0}", type);
+                    sql = string.Format("SELECT Plant As PlantName, Description AS NoteA, Notes AS NoteB " +
+                    "FROM Task " +
+                    "WHERE Type = {0}", taskTypeId);
                     
                     if(!string.IsNullOrEmpty(plantName))
                     {
-                       sql = string.Format(" {0} AND Plant ='{1}'", sql, plantName) 
+                        sql = string.Format(" {0} AND Plant ='{1}'", sql, plantName);
                     }
 
-                    var plantNotes = _connection.Query<PlantNote>(sql.ToString());
+                    var  taskNotes = _connection.Query<ReviewNote>(sql.ToString());
 
-                    foreach (var plantNote in plantNotes)
+                    foreach (var taskNote in taskNotes)
                     {
-                        if (!string.IsNullOrEmpty(plantNote.Planting))
-                            notes.Add(string.Format("{0}: {1}-{2}", plantNote.PlantName, plantNote.Planting, plantNote.Harvesting));
+                        if (!string.IsNullOrEmpty(taskNote.NoteA))
+                            notes.Add(string.Format("{0}: {1}-{2}", taskNote.PlantName, taskNote.NoteA, taskNote.NoteB));
                     }
                     
                     break;

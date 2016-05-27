@@ -40,7 +40,7 @@
     <Compile Include="Helpers\PageToolBarItems.cs" />
     <Compile Include="Entities\Plant.cs" />
     <Compile Include="Entities\Variety.cs" />
-    <Compile Include="Models\PlantNote.cs" />
+    <Compile Include="Models\ReviewNote.cs" />
     <Compile Include="Pages\AddPlant.cs" />
     <Compile Include="Pages\AddTask.cs" />
     <Compile Include="App.cs" />
