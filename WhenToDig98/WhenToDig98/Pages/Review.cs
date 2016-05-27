@@ -130,7 +130,7 @@ namespace WhenToDig98.Pages
             {
                 _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                var notes = note.Split("-");
+                var notes = note.Split('-');
                 
                 _noteGrid.Children.Add(new Label
                 {
@@ -139,8 +139,10 @@ namespace WhenToDig98.Pages
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Center
                 }, 0, rowCounter);
-                _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
-                
+                Grid.SetColumnSpan(_noteGrid.Children[_noteGrid.Children.Count - 1], 3);
+
+                rowCounter++;
+
                 _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 _noteGrid.Children.Add(new Label
@@ -150,7 +152,7 @@ namespace WhenToDig98.Pages
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Center
                 }, 0, rowCounter);
-                _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                Grid.SetColumnSpan(_noteGrid.Children[_noteGrid.Children.Count - 1], 3);
                 
                 rowCounter++;
 

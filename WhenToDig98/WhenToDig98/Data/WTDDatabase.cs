@@ -227,7 +227,7 @@ namespace WhenToDig98.Data
                         "FROM Plant p " +
                         "INNER JOIN Variety v " +
                         "ON p.ID = v.PlantID " +
-                        "ORDER BY p.Name,v.Name"
+                        "ORDER BY p.Name,v.Name";
 
                     if (plantId > 0)
                         sql = string.Format("{0} WHERE p.ID={1}", sql, plantId);
