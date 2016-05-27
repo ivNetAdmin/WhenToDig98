@@ -146,21 +146,18 @@ namespace WhenToDig98.Pages
                 plantName = notes[0];
                 rowCounter++;
                 
-                if(!string.IsNullOrEmpty(notes[1]))
+                _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                _noteGrid.Children.Add(new Label
                 {
-                    _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-    
-                    _noteGrid.Children.Add(new Label
-                    {
-                        Text = notes[1],
-                        TextColor = Color.Silver,
-                        HorizontalTextAlignment = TextAlignment.Start,
-                        VerticalTextAlignment = TextAlignment.Center
-                    }, 0, rowCounter);
-                    Grid.SetColumnSpan(_noteGrid.Children[_noteGrid.Children.Count - 1], 3);
-                    
-                    rowCounter++;
-                }
+                    Text = notes[1],
+                    TextColor = Color.Silver,
+                    HorizontalTextAlignment = TextAlignment.Start,
+                    VerticalTextAlignment = TextAlignment.Center
+                }, 0, rowCounter);
+                Grid.SetColumnSpan(_noteGrid.Children[_noteGrid.Children.Count - 1], 3);
+                
+                rowCounter++;
 
             }
         }
