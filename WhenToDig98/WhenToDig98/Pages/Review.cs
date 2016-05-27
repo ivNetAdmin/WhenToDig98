@@ -130,14 +130,28 @@ namespace WhenToDig98.Pages
             {
                 _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
+                var notes = note.Split("-");
+                
                 _noteGrid.Children.Add(new Label
                 {
-                    Text = note,
+                    Text = notes[0],
+                    TextColor = Color.Teal,
+                    HorizontalTextAlignment = TextAlignment.Start,
+                    VerticalTextAlignment = TextAlignment.Center
+                }, 0, rowCounter);
+                _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                
+                _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                _noteGrid.Children.Add(new Label
+                {
+                    Text = notes[1],
                     TextColor = Color.Silver,
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Center
                 }, 0, rowCounter);
                 _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                
                 rowCounter++;
 
             }
