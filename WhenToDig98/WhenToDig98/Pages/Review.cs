@@ -126,23 +126,25 @@ namespace WhenToDig98.Pages
             _noteGrid.Children.Clear();
 
             var rowCounter = 0;
+            var plant = string.Empty;
+            
             foreach(var note in _notes)
             {
-                _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-                var notes = note.Split('-');
-                
-                _noteGrid.Children.Add(new Label
+                var notes = note.Split("-");
+                if(plant == notes[0])
                 {
-                    Text = notes[0],
-                    TextColor = Color.Teal,
-                    HorizontalTextAlignment = TextAlignment.Start,
-                    VerticalTextAlignment = TextAlignment.Center
-                }, 0, rowCounter);
-                Grid.SetColumnSpan(_noteGrid.Children[_noteGrid.Children.Count - 1], 3);
-
-                rowCounter++;
-
+                    _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });   
+                    _noteGrid.Children.Add(new Label
+                    {
+                        Text = notes[0],
+                        TextColor = Color.Teal,
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        VerticalTextAlignment = TextAlignment.Center
+                    }, 0, rowCounter);
+                    _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
+                 }
+                plant = notes[0];
+                
                 _noteGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                 _noteGrid.Children.Add(new Label
@@ -152,7 +154,7 @@ namespace WhenToDig98.Pages
                     HorizontalTextAlignment = TextAlignment.Start,
                     VerticalTextAlignment = TextAlignment.Center
                 }, 0, rowCounter);
-                Grid.SetColumnSpan(_noteGrid.Children[_noteGrid.Children.Count - 1], 3);
+                _noteGrid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 3);
                 
                 rowCounter++;
 
