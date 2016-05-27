@@ -247,9 +247,23 @@ namespace WhenToDig98.Data
                     if (type == "sow") taskTypeId = 2;
                     if (type == "harvest") taskTypeId = 4;
 
-                    var tasks = plantId == 0
-                       ? _connection.Table<Task>().Where(t => t.Type == taskTypeId).ToList()
-                       : _connection.Table<Task>().Where(t => t.Plant == plantName).ToList();
+                    var sql = string.Format("SELECT Plant As PlantName, Description AS Planting, Notes AS Harvesting " +
+                    "FROM Task "
+                    "WHERE Type = {0}", type);
+                    
+                    if(!string.IsNullOrEmpty(plantName))
+                    {
+                       sql = string.Format(" {0} AND Plant ='{1}'", sql, plantName) 
+                    }
+
+                    var plantNotes = _connection.Query<PlantNote>(sql.ToString());
+
+                    foreach (var plantNote in plantNotes)
+                    {
+                        if (!string.IsNullOrEmpty(plantNote.Planting))
+                            notes.Add(string.Format("{0}: {1}-{2}", plantNote.PlantName, plantNote.Planting, plantNote.Harvesting));
+                    }
+                    
                     break;
             }
 
