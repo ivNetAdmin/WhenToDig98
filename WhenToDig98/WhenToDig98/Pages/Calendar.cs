@@ -466,9 +466,8 @@ namespace WhenToDig98.Pages
         }
         
         private void OnLabelClicked(DateTime date)
-        {
-            var dateStr = date.ToString("dd-MMM-yyyy");
-            var cakes = dateStr;
+        {           
+            Navigation.PushAsync(new AddTask(_database, 0, date));
         }
 
     }

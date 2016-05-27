@@ -66,7 +66,7 @@ namespace WhenToDig98.Data
             var startDate = new DateTime(_currentCallendarDate.Year, _currentCallendarDate.Month, 1);
             var endDate = new DateTime(_currentCallendarDate.Year, _currentCallendarDate.Month, 1).AddMonths(1);
 
-            var tasks = _connection.Query<Task>("SELECT * FROM Task WHERE Date > ? AND Date < ?", 
+            var tasks = _connection.Query<Task>("SELECT * FROM Task WHERE Date >= ? AND Date < ?", 
                 new DateTime(startDate.Year, startDate.Month, startDate.Day).Ticks,
                 new DateTime(endDate.Year, endDate.Month, endDate.Day).Ticks);
 

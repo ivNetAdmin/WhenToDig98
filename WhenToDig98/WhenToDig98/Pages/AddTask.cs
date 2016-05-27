@@ -14,7 +14,7 @@ namespace WhenToDig98.Pages
         private string[] _taskTypes;
         private IEnumerable<Plant> _plants;
 
-        public AddTask(WTDDatabase database, int taskId = 0)
+        public AddTask(WTDDatabase database, int taskId = 0, DateTime? taskDate = null)
         {
             _database = database;
 
@@ -30,7 +30,7 @@ namespace WhenToDig98.Pages
             _taskTypes = _database.GetTaskTypes();
             _plants = _database.GetPlants();
 
-            var grid = BuildForm();
+            var grid = BuildForm(taskDate);
 
             this.Content = new StackLayout
             {
@@ -42,8 +42,10 @@ namespace WhenToDig98.Pages
             };
         }
 
-        private Grid BuildForm()
+        private Grid BuildForm(DateTime? taskDate)
         {
+            if (taskDate == null) taskDate = DateTime.Now;
+
             Grid grid = new Grid
             {
                 VerticalOptions = LayoutOptions.StartAndExpand
@@ -72,7 +74,9 @@ namespace WhenToDig98.Pages
             grid.Children.Add(new DatePicker
             {
                 Format = "dd/MMM/yyyy",
-                Date = _task == null ? DateTime.Now : _task.Date
+                Date = _task == null ?
+                taskDate.GetValueOrDefault()
+                : _task.Date
             }, 1, 0);
             Grid.SetColumnSpan(grid.Children[grid.Children.Count - 1], 6);
 
