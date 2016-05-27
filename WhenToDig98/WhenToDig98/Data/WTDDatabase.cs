@@ -250,7 +250,7 @@ namespace WhenToDig98.Data
                     break;
             }
 
-            return null;
+            return notes;
         }
 
         #endregion

@@ -5,6 +5,7 @@ using WhenToDig98.Data;
 using WhenToDig98.Helpers;
 using WhenToDig98.Entities;
 using Xamarin.Forms;
+using WhenToDig98.Models;
 
 namespace WhenToDig98.Pages
 {
@@ -12,10 +13,13 @@ namespace WhenToDig98.Pages
     {
         private WTDDatabase _database;
         private IEnumerable<Plant> _plants;
+        private IEnumerable<string> _notes;
+        private Grid _noteGrid;
 
         public Review(WTDDatabase database)
         {
             _database = database;
+            _noteGrid = new Grid();
 
             Padding = new Thickness(10);
 
@@ -41,7 +45,7 @@ namespace WhenToDig98.Pages
 
             ((StackLayout)this.Content).Children.Clear();
             ((StackLayout)this.Content).Children.Add(BuildSearchForm());
-            ((StackLayout)this.Content).Children.Add(new StackLayout());
+            ((StackLayout)this.Content).Children.Add(_noteGrid);
         }
 
         private Grid BuildSearchForm()
@@ -102,23 +106,41 @@ namespace WhenToDig98.Pages
             var grid = (Grid)layout.Children[0];
 
             var plant = ((Picker)grid.Children[0]).SelectedIndex > 0 ? ((List<Plant>)_plants)[((Picker)grid.Children[0]).SelectedIndex - 1] : null;
-            var plantId = plant == null ? 0 : plant.ID;
-            object notes;
+            var plantId = plant == null ? 0 : plant.ID;            
 
             switch (((Button)sender).Text)
             {
                 case "Variety Notes":
-                    notes = _database.GetNotes("variety", plantId);
+                    _notes = _database.GetNotes("variety", plantId);
                     break;
                 case "Sowing":
-                    notes = _database.GetNotes("sow", plantId);
+                    _notes = _database.GetNotes("sow", plantId);
                     break;
                 case "Harvesting":
-                    notes = _database.GetNotes("harvest", plantId);
+                    _notes = _database.GetNotes("harvest", plantId);
                     break;
                 case "Cultivating":
-                    notes = _database.GetNotes("cultivate", plantId);
+                    _notes = _database.GetNotes("cultivate", plantId);
                     break;
+            }
+
+            _noteGrid.Children.Clear();
+
+            var rowCounter = 0;
+            foreach(var note in _notes)
+            {
+                grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                grid.Children.Add(new Label
+                {
+                    Text = note,
+                    TextColor = Color.Silver,
+                    HorizontalTextAlignment = TextAlignment.Start,
+                    VerticalTextAlignment = TextAlignment.Center
+                }, 0, rowCounter);
+
+                rowCounter++;
+
             }
         }
     }
