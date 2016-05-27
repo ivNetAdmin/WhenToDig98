@@ -220,11 +220,14 @@ namespace WhenToDig98.Data
                 case "variety":
 
                     var sql = "SELECT p.Name AS PlantName, " +
+                        "p.Type AS PlantType, " +
+                        "v.Name as Variety, " +
                         "v.PlantingNotes AS Planting, " +
                         "v.HarvestingNotes AS Harvesting " +
                         "FROM Plant p " +
                         "INNER JOIN Variety v " +
-                        "ON p.ID = v.PlantID";
+                        "ON p.ID = v.PlantID " +
+                        "ORDER BY p.Name"
 
                     if (plantId > 0)
                         sql = string.Format("{0} WHERE p.ID={1}", sql, plantId);
